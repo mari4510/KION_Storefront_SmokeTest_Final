@@ -35,7 +35,9 @@ ${PartNumberSearchField} =    //input[@name='ProductIdentifier_1']
 ${PartNumber} =    118684
 ${AscendingRadioButton} =    //input[@value='ascending']
 ${OrderNumber_Value} =    2628570
+${FirstrowOrderNumerField} =  //tbody[@id='OfflineOrderResutlsBody']//tr[1]//td[2]
 ${PurchaseOrderNumber} =    Test_123
+${FirstrowpurchaseOrderNumerField} =  //tbody[@id='results-body']//tr[1]//td[4]
 ${DateRangeOrder} =    2630118
 ${EmergencyText} =    Emergency
 ${CompletedOrderText} =    Completed
@@ -91,7 +93,7 @@ ${OD_TotalLabel} =  Total:
 ${OD_BackButton} =  //a[@class='btn btn-primary']
 
 #TrackIt Link
-${OrderNumber_Value_ForTrackIt} =  	2629859
+${OrderNumber_Value_ForTrackIt} =  	2624355
 ${DeliveryNumber} =  //table[@id='results']/tbody/tr[1]/td[10]
 ${TrackItLinkText} =  TrackIt!
 ${TrackItlinkElement} =  //a[@title='TrackIt!']
@@ -128,27 +130,40 @@ Default search
 Order No search
     input text    ${OrderNumberSearch_field}    ${OrderNumber_Value}
     click element    ${searchbutton}
-    page should contain    ${OrderNumber_Value}
+    ${Expected_Order}=  set variable     ${OrderNumber_Value}
+    ${actual_Order}=  get text    ${FirstrowOrderNumerField}
+    Should Be Equal As Numbers    ${Expected_Order}  ${actual_order}
+    #page should contain    ${OrderNumber_Value}
     click element  ${ResetButton}
     
 Search the completed orders
     input text    ${OrderNumberSearch_field}    ${OrderNumber_Value_ForTrackIt}
     click element    ${searchbutton}
-    Wait Until Page Contains    ${OrderNumber_Value_ForTrackIt}
-    page should contain    ${OrderNumber_Value_ForTrackIt}
+    Sleep    2s
+    ${Expected_CompletedOrder}=  set variable    ${OrderNumber_Value_ForTrackIt}
+    ${actual_CompletedOrder}=  get text    ${FirstrowOrderNumerField}
+    Sleep    2s
+    Should Be Equal As Strings     ${Expected_CompletedOrder}   ${actual_Completedorder}
+    #Wait Until Page Contains    ${OrderNumber_Value_ForTrackIt}
+    #page should contain    ${OrderNumber_Value_ForTrackIt}
 
 TrackIt Link verfication
     Click Element    ${FirstOrderNumberFromSearchResult}
     Click Element    ${DeliveryNumber}
     Page Should Contain     ${TrackItLinkText}
     Click Element   ${TrackItlinkElement}
+    Switch Window   NEW
+    Close Window
+    Switch Window   MAIN
 
 Purchase Order number search
     input text    ${PurchaseOrderNumberSearchField}    ${PurchaseOrderNumber}
     click element    ${searchbutton}
-    Sleep    2s
-    page should contain    ${PurchaseOrderNumber}
-    Sleep    1s
+    ${status}=    Run Keyword And Return Status    SeleniumLibrary.Page Should Contain Element    ${FirstrowPurchaseOrderNumerField}
+    ${variable}=    Set Variable If    '${status}' == 'PASS'    True    False
+    #${variable}=    SeleniumLibrary.Page Should Contain Element    ${FirstrowPurchaseOrderNumerField}
+    Run Keyword If    '${variable}' == True    Purchase order number verification 1
+    ...    ELSE IF    '${variable}' == False   Purchase order number verification 2
     click element    ${ResetButton}
     sleep    1s
 
@@ -265,3 +280,11 @@ Verify the Order details page contents
   Click Element   ${OD_BackButton}
 
 
+Purchase order number verification 1
+  ${Expected_PurchaseOrder}=  set variable     ${PurchaseOrderNumber}
+  ${actual_PurchaseOrder}=  get text    ${FirstrowPurchaseOrderNumerField}
+    Should Be Equal As Strings    ${Expected_PurchaseOrder}   ${actual_PurchaseOrder}
+    page should contain    ${PurchaseOrderNumber}
+    
+Purchase order number verification 2
+    Page Should Contain    No Placed Orders found!

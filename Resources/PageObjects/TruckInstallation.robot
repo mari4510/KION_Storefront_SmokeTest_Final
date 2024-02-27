@@ -26,6 +26,7 @@ ${TI_CustmernameHeaderAsc} =  123
 ${TI_DealerNameHeaderAsc} =  ELEVEX (Formerly Manutention Quebec)
 ${TI_ReportStatusHeaderAsc} =  Approved
 ${TI_ReportDateHeaderAsc} =  //tbody/tr[1]/td[7]
+${TI_InstalldateHeaderFirstRow} =  //tbody[@id='installReportResultBody']//tr[1]//td[7]
 ${TI_InstalldateHeaderAsc} =  05/30/13
 #LazyLoad
 ${FT_serialno_40} =  //td[normalize-space()='40']
@@ -39,8 +40,8 @@ ${TIN_ICFormNo} =  008
 ${TIN_ElectricButton} =  //label[normalize-space()='Electric']
 ${TIN_ICButton} =   //label[normalize-space()='Internal Combustion']
 ${TIN_FormNumberField} =  //input[@id='InstallationCheckForm_InstallationFormNumber']
-${TIN_NewSerialforElectric} =  W4X144A00382
-${TIN_NewSerialForIC} =  W4X360Z01375
+${TIN_NewSerialforElectric} =  W4X360Z01375
+${TIN_NewSerialForIC} =  W4X360Z01404
 ${TIN_SerialNumberField} =  //input[@id='InstallationCheckForm_TruckSerialNumber']
 ${TIN_SubmitButton} =  //button[normalize-space()='Submit']
 ${TIN_SoldButton} =  //label[normalize-space()='Sold']
@@ -151,8 +152,10 @@ Verify the sorting in the truck insatallation page
   Click Element    ${TI_ReportDateHeader}
   Sleep    2s
   Click Element    ${TI_InstalldateHeader}
-  Sleep    1s
-  Page Should Contain    ${TI_InstalldateHeaderAsc}
+  Sleep    2s
+  ${actualvalue01} =  Get Text    ${TI_InstalldateHeaderFirstRow}
+  Should Be Equal As Strings    ${actual_value01}    ${TI_InstalldateHeaderAsc}
+  Sleep    2s
   Click Element    ${TI_ReportDateHeader}
 
 Verify the Search installation lazy load

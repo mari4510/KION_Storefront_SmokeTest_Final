@@ -61,9 +61,10 @@ ${MA-TruckTransferLink} =  //a[@data-testing-id='link-trucksearch-templates'][no
 ${MA_TruckTransferPageHeading} =  Truck Search
 *** Keywords ***
 go to My Account Overview
+    Wait Until Element Is Visible    ${MyAccountLink}
     click element    ${MyAccountLink}
+    Wait Until Page Contains    ${MyAccount_Overview_PageHeading}
     page should contain    ${MyAccount_Overview_PageHeading}
-    Sleep    1s
 go to saved Unplaced Order page
     click element    ${SavedUnplaced_Order_Link}
     page should contain    ${SavedUnplaced_Order_PageHeading}
@@ -162,6 +163,7 @@ Expand My Organization section
     click element    ${MyOrganaization_Link}
 
 go to Addresses page
+    Wait Until Element Is Visible    ${Addresses_Link}
     click element    ${Addresses_Link}
     page should contain    ${Addresses_PageHeading}
     Sleep    2s

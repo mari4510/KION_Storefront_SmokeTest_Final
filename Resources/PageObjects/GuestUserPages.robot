@@ -34,7 +34,7 @@ ${SRP_Page_Verify} =    Search Results for "${SearchTerm_ValidTerm}"
 
 *** Keywords ***
 Verify the Guest_home Page header
-    sleep    10s
+    sleep    5s
     page should contain element    ${LogoImage}
     page should contain element    ${Linde_Link}
     page should contain element    ${Login_Iocon}
@@ -56,7 +56,7 @@ go to home page
 
 click header_linde link
     click element    ${Linde_Link}
-    sleep    25 s
+    sleep    5s
     page should contain    ${Category_Heading}
 
 go to guest PLP
@@ -64,9 +64,9 @@ go to guest PLP
     sleep    2s
     mouse down    ${Kits_Link_DropDown}
     double click element    ${Kits_Link_DropDown}
-    sleep    15s
+    sleep    2s
     page should contain element    ${plp_page_heading}
-    Sleep    5s
+    Sleep    2s
     click element    ${sortby}
     click element    ${ascendingorder}
 
@@ -75,6 +75,7 @@ go to guest PDP
 
 
 Verify the Guest_PDP contents
+    Sleep    2s
     page should contain    ${ProductName_PDP}
     page should contain element    ${Product_Image}
     page should contain element    ${Product_SupportImage}
@@ -86,9 +87,10 @@ Verify the Guest_PDP contents
     page should contain    ${Recently_Viewed_Heading}
 
 go to SRP page
-    sleep    5s
+    sleep    2s
     click element    ${Search_Icon}
     sleep    2s
     input text    ${Searbox}    ${SearchTerm_ValidTerm}
     click element    ${Searchbox_SearchIcon}
     page should contain    ${SearchTerm_ValidTerm}
+

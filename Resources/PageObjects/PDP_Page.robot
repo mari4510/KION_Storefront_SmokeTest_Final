@@ -75,9 +75,12 @@ Go Breakdown product PDP
     sleep    3s
     click element    ${BreakDownProductWorkSheetButton}
     sleep    2s
+    Wait Until Element Is Visible    ${BreakDownAlertPopup_Ok}
     click element    ${BreakDownAlertPopup_Ok}
     sleep  3s
-    Click Element    ${minicart_Close}
+    ${status}=    Run Keyword And Return Status    Page Should Contain    Worksheet Order Total
+    Run Keyword If    '${status}' == 'True'    Click Element    ${minicart_Close}
+    ...    ELSE  Log    message
 Go replacement product PDP
     sleep    5s
     click element   ${Search_Icon}

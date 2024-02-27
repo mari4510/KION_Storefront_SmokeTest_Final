@@ -5,6 +5,8 @@ Library    XML
 #Search Section
 ${WM_ClaimNumberField} =  //input[@class='form-control']
 ${WM_ClaimNumberFieldValue} =  7425441
+${WM_ClaimNumberSearchResultFieldRow} =  //tbody[@id='warranty-results-body']//tr[1]//td[3]
+${WM_ClaimNumberSearchResult} =   //tbody[@id='warranty-results-body']//tr[1]//td[3]
 ${WM_WorkOrderField} =  //div[@class='col-xs-12']//input[@name='Warranty_WorkOrder']
 ${WM_WorkOrderFieldValue} =  test
 ${WM_SubmitDateFromField} =  //input[@id='submittedDateStart']
@@ -25,7 +27,7 @@ ${WM_SavedStatusvalue} =  //option[.='Saved Claims']
 ${WM_SubmittedStatusvalue} =  //option[.='Submitted Claims']
 ${WM_ProcessedStatusvalue} =  //option[.='Processed Claims']
 ${WM_ProcessedStatusSearchResult} =  Processed
-${WM_ClaimTypeDropdown} =  //select[@id='ClaimTypeSelectBox']
+${WM_ClaimTypeDropdown} =   //label[.='Claim Type']
 ${WM_TruckClaim} =  //option[.='Truck']
 ${WM_TruckClaimSearchresult} =  Truck
 ${WM_PartCaim} =  //option[.='Part']
@@ -125,6 +127,7 @@ ${NWM_EndSubmit} =  //button[@name='submitClaim']
 ${NWM_SubmittedStatus} =  Submitted
 
 #Part Claim
+${NMW_LineItemField} =  //input[@id='warranty-addlindeitem-sku_1']
 ${NWM_ClaimTypeDropdown} =  //select[@id='ClaimTypeSelectBox']
 ${NWM_PartClaim} =   //option[@value='Part']
 ${NWM_AddLineItemButton} =  //button[@id='add-line-item']
@@ -143,8 +146,12 @@ ${NWM_FreightCalculate}=  id=simulate-warranty
 warranty claim number search
   Input Text    ${WM_ClaimNumberField}    ${WM_ClaimNumberFieldValue}
   Click Element    ${WM_SearchClaimsButton}
+  Sleep    3s
+  Wait Until Page Contains    ${WM_ClaimNumberFieldValue}
+  ${ClaimNoSearchResult}=  Set Variable  ${WM_ClaimNumberFieldValue}
+  ${actualClaiSearchResult}=  Get Text    ${WM_ClaimNumberSearchResultFieldRow}
+  Should Be Equal As Strings    ${ClaimNoSearchResult}     ${actualClaiSearchResult}
   Sleep    2s
-  Page Should Contain    ${WM_ClaimNumberFieldValue}
   Click Element    ${WM_ClearSearchButton}
 
 warranty workorder search
@@ -198,12 +205,13 @@ Warranty status search
   Click Element    ${WM_ClearSearchButton}
 
 claim type search
-  Sleep    2s
+  Sleep    4s
   Click Element    ${WM_ClaimTypeDropdown}
-  Sleep    1s
+  Wait Until Element Is Visible    ${WM_TruckClaim}
   Click Element    ${WM_TruckClaim}
-  Click Element    ${WM_SearchClaimsButton}
   Sleep    2s
+  Click Element    ${WM_SearchClaimsButton}
+  Sleep    3s
   Page Should Contain    ${WM_TruckClaimSearchresult}
   Click Element    ${WM_ClearSearchButton}
   
@@ -276,7 +284,7 @@ verify the warranty management sorting
   Click Element    ${WM_CustomerHeader}
   Sleep    1s
   Click Element    ${WM_StatusHeader}
-  Sleep    1s
+  Sleep    3s
   ${actual08} =  Get Text    ${WM_StatusHeaderFirstrow}
   Should Be Equal As Strings    ${WM_StatusHeaderAsc}    ${actual08}
   Sleep    1s
@@ -302,52 +310,87 @@ verify the warranty management lazyload
   page should contain element    ${FT_serialno_40}
   Execute Javascript   document.querySelector('.table-responsive.freeze-header').scrollTop=1500;
   sleep    5s
-  Execute Javascript   document.querySelector('.table-responsive.freeze-header').scrollTop=2500;
+  Execute Javascript   document.querySelector('.table-responsive.freeze-header').scrollTop=3500;
   Sleep    3s
   page should contain element    ${FT_serialno_80}
   page should not contain element    ${FT_serialno_81}
 
 Submit the truck claim
+  Wait Until Element Is Visible    ${WM_CreateNewwarrantyclaim}
   Click Element    ${WM_CreateNewwarrantyclaim}
+  Wait Until Element Is Visible    ${NWM_EquipmentSerialNumberField}
   Input Text    ${NWM_EquipmentSerialNumberField}    ${NWM_SerialNo}
+  Wait Until Element Is Enabled    ${NWM_SubmitButton}
   Click Element    ${NWM_SubmitButton}
+  Wait Until Element Is Visible    ${NWM_WorkOrderField}
   Input Text    ${NWM_WorkOrderField}  ${NWM_WorkorderFieldValue}
+  Wait Until Element Is Visible    ${NWM_PartCausingFailureField}
   Input Text    ${NWM_PartCausingFailureField}    ${NWM_PartCausingFailureFieldValue}
+  Wait Until Element Is Visible    ${NWM_hourMeterField}
   Input Text    ${NWM_hourMeterField}  ${NWM_hourMeterFieldValue}
+  Wait Until Element Is Visible    ${NWM_FailureDateField}
   Input Text    ${NWM_FailureDateField}    ${NWM_FailureDateFieldValue}
+  Wait Until Element Is Visible    ${NWM_RepairDateField}
   Input Text    ${NWM_RepairDateField}    ${NWM_RepairDateFieldValue}
+  Wait Until Element Is Visible    ${NWM_NotesField}
   Input Text    ${NWM_NotesField}    ${NWM_NotesFieldValue}
+  Wait Until Element Is Visible    ${NWM_ProceedButton}
   Click Element    ${NWM_ProceedButton}
+  Wait Until Element Is Visible    ${NWM_AddLindePartsLink}
   Click Element    ${NWM_AddLindePartsLink}
+  Wait Until Element Is Visible    ${NWM_LindePartField}
   Input Text    ${NWM_LindePartField}   ${NWM_LindePartValue}
+  Wait Until Element Is Visible    ${NWM_LindePartField}
   Press Keys   ${NWM_LindePartField}  ENTER
+  Wait Until Element Is Visible    ${NWM_AddToClaimButton}
   Click Element    ${NWM_AddToClaimButton}
+  Wait Until Element Is Visible    ${NWM_AddNonLindePartsButton}
   Click Element    ${NWM_AddNonLindePartsButton}
+  Wait Until Element Is Visible    ${NWM_NonLindeQTYField}
   Input Text    ${NWM_NonLindeQTYField}    ${NWM_NonLindeQTYFieldValue}
+  Wait Until Element Is Visible    ${NWM_NonLindeDescriptionField}
   Input Text    ${NWM_NonLindeDescriptionField}    ${NWM_NonLindeDescriptionFieldValue}
+  Wait Until Element Is Visible    ${NWM_NonLindeAmountField}
   Input Text    ${NWM_NonLindeAmountField}    ${NWM_NonLindeAmountValue}
+  Wait Until Element Is Visible    ${NWM_AddToClaimButton}
   Click Element    ${NWM_AddToClaimButton}
+  Wait Until Element Is Visible    ${NWM_AddMiscPartLink}
   Click Element    ${NWM_AddMiscPartLink}
+  Wait Until Element Is Visible    ${NWM_MiscDescriptionField}
   Input Text    ${NWM_MiscDescriptionField}    ${NWM_MiscDescriptionFieldValue}
+  Wait Until Element Is Visible    ${NWM_MiscAmountField}
   Input Text    ${NWM_MiscAmountField}    ${NWM_MiscAmount}
+  Wait Until Element Is Visible    ${NWM_AddToClaimButton}
   Click Element    ${NWM_AddToClaimButton}
+  Wait Until Element Is Visible    ${NWM_EditLabourItemLink}
   Click Element    ${NWM_EditLabourItemLink}
+  Wait Until Element Is Visible    ${NWM_ShopLaourField}
   Clear Element Text    ${NWM_ShopLaourField}
+  Wait Until Element Is Visible    ${NWM_ShopLaourField}
   Input Text    ${NWM_ShopLaourField}    ${NWM_ShopLaourFieldValue}
+  Wait Until Element Is Visible    ${NWM_FieldlabourField}
   Clear Element Text    ${NWM_FieldlabourField}
+  Wait Until Element Is Visible    ${NWM_FieldlabourField}
   Input Text    ${NWM_FieldlabourField}    ${NWM_FieldlabourFieldValue}
+  Wait Until Element Is Visible    ${NWM_TravelLabourField}
   Clear Element Text    ${NWM_TravelLabourField}
+  Wait Until Element Is Visible    ${NWM_TravelLabourField}
   Input Text    ${NWM_TravelLabourField}    ${NWM_TravelLabourFieldValue}
+  Wait Until Element Is Visible    ${NMW_AddLaboutItemAddcalimButton}
   Click Element    ${NMW_AddLaboutItemAddcalimButton}
+  Wait Until Element Is Visible    ${NWM_BackToClaimButton}
   Click Element    ${NWM_BackToClaimButton}
+  Wait Until Element Is Visible    ${NWM_CalculateButton}
   Click Element    ${NWM_CalculateButton}
+  Wait Until Element Is Visible    ${NWM_EndSubmit}
   Click Element    ${NWM_EndSubmit}
+  Wait Until Page Contains    ${NWM_SubmittedStatus}
   Page Should Contain    ${NWM_SubmittedStatus}
 
 Submit the part claim
   Click Element    ${WM_CreateNewwarrantyclaim}
   Sleep    3s
-  Click Element    ${WM_ClaimTypeDropdown}
+  Click Element    ${NWM_ClaimTypeDropdown}
   Sleep    1s
   Click Element    ${NWM_PartClaim}
   Click Element    ${NWM_SubmitButton}
@@ -360,10 +403,13 @@ Submit the part claim
   Sleep    1s
   Input Text    ${NWM_NotesField}    ${NWM_NotesFieldValue}
   Click Element    ${NWM_ProceedButton}
+  Sleep    2s
   Click Element    ${NWM_AddLineItemButton}
   Sleep    3s
-  Input Text    ${WM_PartNumberField}    ${WM_PartNumberFieldValue}
-  Press Keys    ${WM_PartNumberField}   ENTER
+  Wait Until Page Contains    Edit Warranty Claim
+  Sleep    2s
+  Input Text    ${NMW_LineItemField}    ${WM_PartNumberFieldValue}
+  Press Keys    ${NMW_LineItemField}   ENTER
   Click Element    ${NWM_AddToClaimButton}
   Click Element    ${NWM_BackToClaimButton}
   Click Element    ${NWM_CalculateButton}
@@ -374,7 +420,7 @@ Submit the part claim
 Submit the Freight Claim
   Click Element    ${WM_CreateNewwarrantyclaim}
   Sleep    3s
-  Click Element    ${WM_ClaimTypeDropdown}
+  Click Element    ${NWM_ClaimTypeDropdown}
   Sleep    2s
   Click Element    ${NWM_FreightClaim}
   Click Element    ${NWM_SubmitButton}

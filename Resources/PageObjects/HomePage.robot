@@ -35,7 +35,7 @@ Hover over the product and click add to worksheet
     Mouse Over    ${Featured-Product-Name}
     Sleep    2s
     click element    ${Add to worksheet}
-    Sleep    2s
+    Wait Until Element Is Visible    ${minicart_Close}
     Click Element  ${minicart_Close}
 
 

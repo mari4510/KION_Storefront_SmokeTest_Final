@@ -91,6 +91,7 @@ ${TSD_PrtintButton} =  //a[@title='Print']
 
 *** Keywords ***
 Verify the truck sales search page contents
+  Wait Until Page Contains    ${TS_SearchSectionHeader}
   Page Should Contain    ${TS_SearchSectionHeader}
   Page Should Contain    ${TS_Orderlabel}
   Page Should Contain Element    ${TS_OrderTextField}
@@ -163,12 +164,13 @@ Search Sale report with more search criteria
 
 Verify the lazy load in the truck sales search result
   Click Element    ${TS_SearchTrucksButton}
-  sleep    5s
+  sleep    3s
   Execute JavaScript    window.scrollBy(0,800)
-  sleep    5s
+  sleep    3s
   page should contain element    ${TS_serialno_10}
+  sleep    3s
   Execute Javascript   document.querySelector('.table-responsive.freeze-header.min-records').scrollTop=100;
-  sleep    5s
+  sleep    3s
   Execute Javascript   document.querySelector('.table-responsive.freeze-header.min-records').scrollTop=900;
   Sleep    3s
   page should contain element    ${TS_serialno_20}

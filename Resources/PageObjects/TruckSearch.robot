@@ -151,7 +151,9 @@ Verify the sorting and searching
 go to Equipment details page and verify contents
   Input Text    ${FT_SerialNumberField}    ${FT_SerialNumber}
   Click Element    ${FT_SearchTrucksButton}
+  Wait Until Element Is Visible    ${FT_TruckSerialLink}
   Click Element    ${FT_TruckSerialLink}
+  Wait Until Page Contains  ${FTD_Heading}
   Page Should Contain    ${FTD_Heading}
   Page Should Contain    ${FTD_ModelDescriptionLabel}
   Page Should Contain    ${FTD_EquipmentDetailsHeader}
@@ -178,15 +180,21 @@ go to Equipment details page and verify contents
 
 go to Equipment details verify the history page details
   Input Text    ${FT_SerialNumberField}  ${FTD_SerialforHistory}
+  Wait Until Element Is Visible    ${FT_FindSerialNumberButton}
   Click Element    ${FT_FindSerialNumberButton}
+  Wait Until Element Is Visible    ${FTD_HistoryButton}
   Click Element    ${FTD_HistoryButton}
+  Wait Until Page Contains    ${FTDC_ClaimHistoryPageHeading}
   Page Should Contain  ${FTDC_ClaimHistoryPageHeading}
   ${expectedprintcount}  set variable  2
+  Wait Until Element Is Visible    ${FTDC_PrintButton}
   ${ActualPrintcount} =  Get Element Count    ${FTDC_PrintButton}
   Should Be Equal As Numbers    ${expectedprintcount}    ${ActualPrintcount}
   ${expectedBackcount}  set variable  2
+  Wait Until Element Is Visible    ${FTDC_BackButton}
   ${ActualBackcount} =  Get Element Count    ${FTDC_BackButton}
   Should Be Equal As Numbers    ${expectedprintcount}    ${ActualPrintcount}  
+  Wait Until Page Contains    ${FT_ItemColumn}
   Page Should Contain  ${FT_ItemColumn}
   Page Should Contain    ${FTDC_SubHeader}
   Page Should Contain Element    ${FTDC_ClaimTotalHeader}
@@ -197,9 +205,12 @@ go to Equipment details verify the history page details
   Page Should Contain Element    ${FTDC_ClaimTotalHeader}
   
 go to equipment details page and verify the history button for no history available truck
+   Wait Until Element Is Visible    ${FT_SerialNumberField}
    Input Text    ${FT_SerialNumberField}    ${FTD_SerialforNoHistory}
+   Wait Until Element Is Visible    ${FT_FindSerialNumberButton}
    Click Element    ${FT_FindSerialNumberButton}
+   Wait Until Element Is Visible    ${FTD_HistoryButton}
    Click Element    ${FTD_HistoryButton}
-   Sleep    3s
+   Wait Until Page Contains    ${FTDC_HistoryErrorMessage}
    Page Should Contain  ${FTDC_HistoryErrorMessage}
 

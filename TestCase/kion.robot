@@ -4,16 +4,20 @@ Resource    ../Resources/Kion_App.robot
 Suite Setup    Begin Test
 Suite Teardown    End Test
 *** Variables ***
+#Pre Requsite:
+#1. Update the Installation serial number
+#2. Update the Sorting values in the truck search
+#3.
+
 #robot -d Results TestCase
 #robot -d Results -i 02 TestCase
 ${URL} =    https://tst.lindelink.com/
-${BROWSER} =    chrome
+${BROWSER} =    Chrome
 ${Login-Mail} =    mar.ig10test@gmail.com
 ${Password} =    Test@123
 *** Test Cases ***
 To verify the all available page navigations as a guest user
-    [Tags]    01    Smoke
-    skip
+    [Tags]    01    Smoke  hh
     Kion_App.Verify the guest user header
     Kion_App.Click order template icon in header
     Kion_App.Verify the page is navigated to the Login page
@@ -25,44 +29,42 @@ To verify the all available page navigations as a guest user
 
 Logging in to the KION site      #When run whole test cases update the Suite setup and enable the test case 01
    [Tags]    02    Smoke
-   skip
    Kion_App.Go to login page
    Kion_App.Login to the kion site  #loging in using #53464
    Kion_App.Select customer from cutomer selector
 To verify the dealer changing through the header dealers dropdown
-   [Tags]    03    Smoke
+   [Tags]    03    Smoke  hh
     Kion_App.Switch the sunbelt dealer
     Kion_App.Navigate to the MyAccount and verify the Switched customer
     Kion_App.Switch the elevex dealer
 Verify the home page contents for login user
    [Tags]    04  smoke
-   Kion_App.Navigate to Home Page
    KION_App.Verify the home page banner
    KION_App.Verify the home page middle contents
    Kion_App.Verify the home page featured products section
    Kion_App.Verify the home page footer section
 
 To verify by adding the product to the worksheet from the home page
-   [Tags]    05  smoke
+   [Tags]    05  smoke  hh
     Kion_App.Navigate to Home Page
     Kion_App.Click the add to worksheet link in the home page feautured products section
 
 To verify the CLP page
-    [Tags]   06  smoke
+    [Tags]   06  smoke  hh
     Kion_App.Click linde link in the header
-    sleep	 5s
+    sleep	 2s
     Kion_App.Verify the refinement section
-    sleep  5s
+    sleep  2s
     Kion_App.Click maintanence category in CLP
     Kion_App.Go Home
 
 To verify by adding the product to the worksheet from the PLP page(Grid View)
     [Tags]   07    Smoke
     Kion_App.Click linde link in the header
-    sleep	 5s
+    sleep	 2s
     Kion_App.Click maintanence category in CLP
     Kion_App.Navigate to PLP
-    sleep    5s
+    sleep    2s
     kion_app.select ascending order in sort by in plp
     Kion_App.Add a product from PLP
     Kion_App.Go Home
@@ -70,10 +72,10 @@ To verify by adding the product to the worksheet from the PLP page(Grid View)
 To verify by adding the product to the worksheet from the product Quick view popup
     [Tags]   08    Smoke
     Kion_App.Click linde link in the header
-    sleep	 5s
+    sleep	 2s
     Kion_App.Click maintanence category in CLP
     Kion_App.Navigate to PLP
-    sleep    5s
+    sleep    2s
     kion_app.select ascending order in sort by in plp
     Kion_App.Click addtoworksheet Button in Quick view
     Kion_App.Go Home
@@ -81,17 +83,17 @@ To verify by adding the product to the worksheet from the product Quick view pop
 To verify the Refinements & Contents in the Product List Page, as Login user.
     [Tags]   09    Smoke
     Kion_App.Click linde link in the header
-    sleep	 5s
+    sleep	 2s
     Kion_App.Click maintanence category in CLP
     Kion_App.Navigate to PLP
-    sleep    5s
+    sleep    2s
     Kion_App.Verfiy the refinement section is displaying or not
     Kion_App.Go Home
 
 To verify by adding the product to the worksheet from the PLP page(List View)
     [Tags]   10    Smoke
     Kion_App.Click linde link in the header
-    sleep	 5s
+    sleep	 2s
     Kion_App.Click maintanence category in CLP
     Kion_App.Navigate to PLP
     Kion_App.Swith PLP grid view to list view
@@ -237,7 +239,7 @@ To verify the placed orders page contents and lazy load
     Kion_App.Go Home
 
 To verify the placed orders page by search criterias
-    [Tags]   30    Smoke
+    [Tags]   30    Smoke  change
     Kion_App.Verify the all search criterias in placed orders page
     Kion_App.Go Home
 
@@ -252,9 +254,9 @@ To verify the all details are displayed in the placed order details page
     Kion_App.Go Home
 
 To verify the track link in the Order details invoice summary page
-    [Tags]   33    Smoke
+    [Tags]   33  smoke  cross1
     Kion_App.Verify the Trackit link for completed orders in invoice sumary page
-    Kion_App.Go Home
+    #Kion_App.Go Home
 
 To verify the lazy load in the back orders page
    [Tags]   34    Smoke
@@ -267,7 +269,7 @@ To verify the all order details are displayed for each back orders in the back o
     Kion_App.Go Home
 
 To verify the backorderlist page sorting options
-   [Tags]   36    Smoke
+   [Tags]   36    Smoke  cross1
    Kion_App.Verify the Back Order list sorting option
    Kion_App.Go Home
 
@@ -304,7 +306,7 @@ To verify the informations are displaying In the Line Item for Dealer Ordered in
    Kion_App.Go Home
 
 To verify the informations are displaying In the Line Item for Incorrectly Specified button in Return Reasons window
-   [Tags]   44    Smoke
+   [Tags]   44    Smoke  change
    Kion_App.Verify the new return form information for Incorrectly Specified Return Reason
    Kion_App.Go Home
 
@@ -452,12 +454,14 @@ To verify the sorting option and lazy load in the Truck Installations page
    Kion_App.Go Home
 
 To verify the Installation report submitting for Electric Truck type in the truck installation page
-   [Tags]  73     Smoke  EEE
+   [Tags]  73     Smoke
+   Skip
    Kion_App.Verify the Electric truck installation submit
    Kion_App.Go Home
 
 To verify the Installation report submitting for IC Truck type in the truck Installation page
-   [Tags]  74     Smoke  EEE
+   [Tags]  74     Smoke
+   Skip
    Kion_App.Verify the IC truck installation submit
    Kion_App.Go Home
 
@@ -498,3 +502,8 @@ To verify the sorting option and lazy load in the Truck Transfer-Truck search pa
    Kion_App.Switch the sunbelt dealer
    Kion_App.Verify the sorting and lazy load in truck transfer-Truck search page
    Kion_App.Go Home
+
+#To verify the Search criteria in the back office Truck search page
+#    [Tags]  85     Smoke
+#    Kion_App.Logout the site
+#    Kion_App.Login with admin login credentials

@@ -23,6 +23,7 @@ Resource    ./PageObjects/Checkout.robot
 Resource    ./PageObjects/UsersPage.robot
 Resource    ./PageObjects/OrderConfirmation.robot
 Resource    ./PageObjects/BackOrders.robot
+Resource    ./PageObjects/AdminLogin.robot
 *** Variables ***
 
 *** Keywords ***
@@ -351,7 +352,7 @@ Verify the add user button in the user list page
 Navigate to the SavedUnplacedOrders_Emergency details page and place the order
     MyAccount.go to My Account Overview
     MyAccount.go to saved Unplaced Order page
-    sleep    20s
+    sleep    5s
     SavedUnplaced_Order.go to emergency saved worksheet
     SavedUnplaced_Order.go to shoppingcart
     SavedUnplaced_Order.go to checkout
@@ -360,6 +361,7 @@ Navigate to the SavedUnplacedOrders_Emergency details page and place the order
 Navigate to the SavedUnplacedOrders_Stock details page and place the order
     Current_WorkSheet.Go to currentworksheet
     Current_WorkSheet.Save a Stock worksheet
+    Sleep    8s
     MyAccount.go to My Account Overview
     MyAccount.go to saved Unplaced Order page
     sleep    3s
@@ -692,3 +694,8 @@ Verify the sorting and lazy load in truck transfer-Truck search page
 
 Go Home
    HomePage.Go Home
+
+
+Logout the site
+   AdminLogin.Logout Dealer
+

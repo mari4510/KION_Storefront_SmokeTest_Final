@@ -24,8 +24,8 @@ ${BO_serialno_11} =  //table[@id='results']/tbody/tr[11]/td[1]
 ${BO_serialno_20} =  //table[@id='results']/tbody/tr[20]/td[1]
 ${BO_Serialno_21} =  //table[@id='results']/tbody/tr[21]/td[text()='21']
 ${BO_Partno_AscendValue} =  111
-${BO_OpenQuantity_AscendValue_01} =  1
-${BO_OpenQuantity_AscendValue_02} =  EA
+${BO_OpenQuantity_AscendValue_01} =  //tbody/tr[2]/td[3]
+${Expec_Asc} =  1EA
 ${BO_Total_AscendValue} =  1.81
 ${BO_Orderno_AscendValue} =  2607994
 ${BO_Pos_AscendValue} =  12
@@ -110,16 +110,23 @@ Verify the back orders list page Lazy load
     sleep    5s
     page should contain element    ${BO_serialno_20}
     page should not contain element    ${BO_serialno_21}
-    
+
 BackOrders Sorting
     [Documentation]  Pos column not clickable
     Click Element    ${BO_PartNoColumn}
-    Sleep    1s
+    Sleep    2s
     Page Should Contain  ${BO_Partno_AscendValue}
+    Sleep    2s
     Click Element    ${BO_PartNoColumn}
     Sleep    2s
     Click Element    ${BO_OpenQtyColumn}
     Sleep    2s
+    ${Actual_Asc}=    Get Text    ${BO_OpenQuantity_AscendValue_01}
+    ${expected_text}=    Set Variable    ${Expec_Asc}
+    ${Actual_Asc}=    Set Variable    ${Actual_Asc.replace(' ', '')}  # Remove whitespace
+    ${Actual_Asc}=    Set Variable    ${Actual_Asc.replace('\n', '')}  # Remove newline characters
+    ${expected_text}=    Set Variable    ${expected_text.replace(' ', '')}
+    Should Be Equal As Strings    ${Actual_Asc}    ${expected_text}
     #${BO_OpenQuantity_AscendValue}    Set Variable  ${BO_OpenQuantity_AscendValue_01}\n${BO_OpenQuantity_AscendValue_02}
     #Page Should Contain  ${BO_OpenQuantity_AscendValue}
     Click Element    ${BO_OpenQtyColumn}
@@ -146,7 +153,7 @@ BackOrders Sorting
     Sleep    2s
     Page Should Contain    ${BO_OrderDate_AscendValue}
     Click Element    ${BO_OrderDateColumn}
-    Sleep    1s
+    Sleep    2s
     Click Element    ${BO_PoCOlumnHeader}
     Sleep    2s
     Page Should Contain    ${BO_PoNo_AscendValue}

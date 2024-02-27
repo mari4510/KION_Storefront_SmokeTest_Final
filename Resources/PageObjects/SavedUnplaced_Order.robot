@@ -60,11 +60,15 @@ go to checkout
     sleep    5s
 
 Place the Order
+    Wait Until Element Is Visible    ${Po-field}
     input text    ${Po-field}    ${Po_Number}
+    Wait Until Element Is Visible    ${TermsAndConditions}
     click element    ${TermsAndConditions}
+    Wait Until Element Is Visible    ${PlaceOrderNow_Button}
     click element    ${PlaceOrderNow_Button}
-    sleep     5s
+    Wait Until Element Is Visible    ${OrderConfirmationHeading}
     page should contain element    ${OrderConfirmationHeading}
+    Wait Until Element Is Visible     ${OrderConfirmationLogo}
     Click Element    ${OrderConfirmationLogo}
 
 Select the Stock Order

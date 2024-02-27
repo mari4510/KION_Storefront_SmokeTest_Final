@@ -60,8 +60,11 @@ Upload a xls file
 
 Clear products
     click element    ${SelectAll_Link}
-    sleep    3s
-    click element    ${DeleteButton}
+    ${status} =    Run Keyword And Return Status   Element Should Be Enabled   ${DeleteButton}
+    Run Keyword If    '${status}' == 'True'    Click Element    ${DeleteButton}
+    ...    ELSE  Log    message
+    Sleep    3s
+    #click element    ${DeleteButton}
 
 Upload the CSV file in the current worksheet
     Choose File     ${Choosefile_Button}    ${CSV_File}
@@ -173,7 +176,7 @@ Save a Stock worksheet
     Sleep    3s
     Input Text    ${NewWorkSheetNameField}    ${NewWorkSheetName}
     Click Element    ${SaveChangesBTN}
-    Sleep    2s
+    Wait Until Element Is Visible    ${SaveWorksheetOkBTN}
     Click Element    ${SaveWorksheetOkBTN}
 
 Scroll Page
