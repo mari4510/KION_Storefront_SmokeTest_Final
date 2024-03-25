@@ -6,7 +6,7 @@ ${Product_Image_01} =   xpath://span[contains(@class,'plp-img1')]//img[contains(
 ${Add-to-worksheet-link} =    xpath://form[contains(@name,'productExpressShopForm_14010086506')]//button[@title='Add to Worksheet'][normalize-space()='+ Add to Worksheet']
 ${Product_Image_02} =    xpath://span[@class='plp-img1']//img[@title='3000 HR maintenance package 396-03']
 ${PLP_QuickView} =    xpath://body/div[@class='wrapper static-wrap-hgt']/div[@role='main']/div[@class='content-wrapper']/div[@id='family-page']/div[@id='place-holder']/div[@id='plp-products-block']/div[@class='product-list plp-list-view plp-product-list row']/div[3]/div[1]/div[1]/div[1]
-${QuickView_AddtoWorksheet} =    name:addProductToWorkSheet
+${QuickView_AddtoWorksheet} =    //button[contains(@class,'btn-primary')][normalize-space()='+ Add to Worksheet']
 ${SortBy} =    //select[@id='SortingAttribute']
 ${AscendingOrder} =    //option[@value='name-asc']
 ${RefinementsSection} =    id:filter-accordion
@@ -16,9 +16,20 @@ ${ListViewButton} =    //span[@class='glyphicon glyphicon-list']
 ${GridViewButton} =    //span[@class='glyphicon glyphicon-th']
 ${minicart_Close} =  //div[@class='block-content']//a[@data-toggle='collapse']
 ${ListViewAddtoWorksheetButton} =    //form[contains(@name,'productExpressShopForm_L0009381501')]//button[contains(@title,'Add to Worksheet')][normalize-space()='+ Add to Worksheet']
+${Linde_Link} =   //a[normalize-space()='Linde']
+${Kits_Link_DropDown} =    //a[normalize-space()='Kits']
+${PLP_Page_Heading} =    //li[@class='breadcrumbs-list breadcrumbs-list-active']
 *** Keywords ***
 Click Kits link
-    click element    ${Kits_Link}
+    mouse down    ${Linde_Link}
+    sleep    2s
+    mouse down    ${Kits_Link_DropDown}
+    double click element    ${Kits_Link_DropDown}
+    sleep    2s
+    page should contain element    ${plp_page_heading}
+    Sleep    2s
+    click element    ${sortby}
+    click element    ${ascendingorder}
 
 Add a product to worksheet
     ${x}=        Get Horizontal Position  ${Product_Image_01}
@@ -28,17 +39,22 @@ Add a product to worksheet
     page should contain element    ${Add-to-worksheet-link}
     Wait Until Element Is Visible    ${minicart_Close}
     Click Element    ${minicart_Close}
+
 Select ascending order in sort by
     click element    ${sortby}
     click element    ${ascendingorder}
+
 Click the quick view button
     Mouse Over    ${Product_Image_02}
     click element    ${PLP_QuickView}
+    Sleep    1s
 
 click the Quick view add to worksheet button
+    Wait Until Page Contains Element    ${QuickView_AddtoWorksheet}
     click button    ${QuickView_AddtoWorksheet}
     Wait Until Element Is Visible    ${minicart_Close}
     Click Element    ${minicart_Close}
+
 Verify the refinement section
     page should contain element    ${RefinementsSection}
     page should contain element    ${comparesection}

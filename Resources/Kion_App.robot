@@ -24,6 +24,9 @@ Resource    ./PageObjects/UsersPage.robot
 Resource    ./PageObjects/OrderConfirmation.robot
 Resource    ./PageObjects/BackOrders.robot
 Resource    ./PageObjects/AdminLogin.robot
+Resource    ./PageObjects/BackOfficeTruckSearch.robot
+Resource    ./PageObjects/BackOfficeInstallationReport.robot
+Resource    ./PageObjects/BoWarranty.robot
 *** Variables ***
 
 *** Keywords ***
@@ -156,6 +159,7 @@ Switch the Elevex dealer
     LoginPage.select Elevex dealer from dealer dropdown
 Navigate to the MyAccount and verify the Switched customer
     LoginPage.Go to My Account
+    Wait Until Page Contains    Welcome back!
     LoginPage.Verify the Loggedin customer
 
 Add a compare page to worksheet
@@ -695,7 +699,79 @@ Verify the sorting and lazy load in truck transfer-Truck search page
 Go Home
    HomePage.Go Home
 
-
 Logout the site
    AdminLogin.Logout Dealer
 
+Login with admin login credentials
+   AdminLogin.Go Admin Login
+   AdminLogin.Login with admin credentials
+
+Verify the admin truck search page searhc criteria
+   BackOfficeTruckSearch.Go to admin truck search
+   BackOfficeTruckSearch.Dealernumber search
+
+Verify the Admin truck search sorting and lazy load
+   BackOfficeTruckSearch.Go to admin truck search
+   BackOfficeTruckSearch.Dealernumber search
+   BackOfficeTruckSearch.Verify the sorting and searching
+
+verify the admin login truck details page
+   BackOfficeTruckSearch.Go to admin truck search
+   BackOfficeTruckSearch.Dealernumber search
+   BackOfficeTruckSearch.go to Equipment details page and verify contents
+
+Verify the admin installation report search
+    BackOfficeInstallationReport.Go to Admin Installation report page
+    BackOfficeInstallationReport.Verify the serial number search in admin installation page
+    BackOfficeInstallationReport.Verify the Dealer number search in admin installation page
+    BackOfficeInstallationReport.Verify the truck status search in the installation report page
+    BackOfficeInstallationReport.All field search
+
+Verify the admin installation report sorting and lazy load
+    BackOfficeInstallationReport.Go to Admin Installation report page
+    BackOfficeInstallationReport.Verify the bo Installation report sorting
+    BackOfficeInstallationReport.Verify the Admin installation lazy load
+
+Verify the admin warranty search criteria
+  BoWarranty.Go to Admin Warranty
+  BoWarranty.Admin warranty claim number search
+  BoWarranty.Admin warranty dealer number search
+  BoWarranty.Admin warranty workorder search
+  BoWarranty.Admin warranty submit date range search
+  BoWarranty.Admin claim type search
+  BoWarranty.Admin Warranty status search
+  BoWarranty.Admin Dealet Action requird search
+  BoWarranty.Admin Warranty message search
+  BoWarranty.Admin warranty partno search
+  BoWarranty.Admin Warranty serialnumber search
+  BoWarranty.Admin Truck Model Search
+  BoWarranty.Admin Warranty Due date search
+  BoWarranty.Admin Warranty Approval date search
+  BoWarranty.Admin Next reviewer search
+
+Verify the admin warranty sorting option
+   BoWarranty.Go to Admin Warranty
+   BoWarranty.verify the warranty management sorting
+
+Verify the Admin warranty lazy load
+   BoWarranty.verify the warranty management lazyload
+
+Verify the bulk approval page
+   BoWarranty.Go to Admin Warranty
+   BoWarranty.Click the perform bulk approval link
+   BoWarranty.Verify the bulk approval page and Pre Approved claims
+
+Verify the truck claim details page for admin
+   BoWarranty.Go to Admin Warranty
+   BoWarranty.Verify admin claim details navigation
+   BoWarranty.Verify the truck claim details page
+
+Verify the Part claim details page for admin
+   BoWarranty.Go to Admin Warranty
+   BoWarranty.Verify admin part claim details navigation
+   BoWarranty.Verify the part claim details page
+
+Verify the Freight claim details page for admin
+   BoWarranty.Go to Admin Warranty
+   BoWarranty.Verify admin Freight claim details navigation
+   BoWarranty.Verify the Freight claim details page

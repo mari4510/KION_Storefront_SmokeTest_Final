@@ -60,9 +60,6 @@ To verify the CLP page
 
 To verify by adding the product to the worksheet from the PLP page(Grid View)
     [Tags]   07    Smoke
-    Kion_App.Click linde link in the header
-    sleep	 2s
-    Kion_App.Click maintanence category in CLP
     Kion_App.Navigate to PLP
     sleep    2s
     kion_app.select ascending order in sort by in plp
@@ -71,9 +68,6 @@ To verify by adding the product to the worksheet from the PLP page(Grid View)
 
 To verify by adding the product to the worksheet from the product Quick view popup
     [Tags]   08    Smoke
-    Kion_App.Click linde link in the header
-    sleep	 2s
-    Kion_App.Click maintanence category in CLP
     Kion_App.Navigate to PLP
     sleep    2s
     kion_app.select ascending order in sort by in plp
@@ -82,9 +76,6 @@ To verify by adding the product to the worksheet from the product Quick view pop
 
 To verify the Refinements & Contents in the Product List Page, as Login user.
     [Tags]   09    Smoke
-    Kion_App.Click linde link in the header
-    sleep	 2s
-    Kion_App.Click maintanence category in CLP
     Kion_App.Navigate to PLP
     sleep    2s
     Kion_App.Verfiy the refinement section is displaying or not
@@ -92,9 +83,6 @@ To verify the Refinements & Contents in the Product List Page, as Login user.
 
 To verify by adding the product to the worksheet from the PLP page(List View)
     [Tags]   10    Smoke
-    Kion_App.Click linde link in the header
-    sleep	 2s
-    Kion_App.Click maintanence category in CLP
     Kion_App.Navigate to PLP
     Kion_App.Swith PLP grid view to list view
     kion_app.select ascending order in sort by in plp
@@ -111,13 +99,13 @@ To verify the Refinements & Contents in the search result Page, as Login user.
     Kion_App.Go Home
 
 To verify by adding the product to the worksheet from the PDP page
-    [Tags]   13    Smoke
+    [Tags]   13    Smoke  PDP
     Kion_App.Navigate to the PDP page
     Kion_App.Click add to worksheet button from the PDP page
     Kion_App.Verify the added product in worksheet
     Kion_App.Go Home
 To verify the all type of products by adding worksheet
-    [Tags]   14   Smoke
+    [Tags]   14   Smoke  PDP
     Kion_App.Add a Alternative products to the worksheet
     Kion_App.Add a Breakdown products to the worksheet
     Kion_App.Add replacement product to the worksheet
@@ -239,7 +227,7 @@ To verify the placed orders page contents and lazy load
     Kion_App.Go Home
 
 To verify the placed orders page by search criterias
-    [Tags]   30    Smoke  change
+    [Tags]   30    Smoke
     Kion_App.Verify the all search criterias in placed orders page
     Kion_App.Go Home
 
@@ -498,12 +486,88 @@ Verify the Search Trucks button by entering valid value in Truck transfer- Truck
    Kion_App.Go Home
 
 To verify the sorting option and lazy load in the Truck Transfer-Truck search page search results
-   [Tags]  82     Smoke  EEE
+   [Tags]  82     Smoke
    Kion_App.Switch the sunbelt dealer
    Kion_App.Verify the sorting and lazy load in truck transfer-Truck search page
    Kion_App.Go Home
 
-#To verify the Search criteria in the back office Truck search page
-#    [Tags]  85     Smoke
-#    Kion_App.Logout the site
-#    Kion_App.Login with admin login credentials
+To verify the Search criteria in the back office Truck search page
+    [Tags]  85    Smoke  Admin
+    Kion_App.Logout the site
+    Kion_App.Go to login page
+    Kion_App.Login with admin login credentials
+    Kion_App.Verify the admin truck search page searhc criteria
+    Kion_App.Go Home
+
+
+To verify the sorting option and lazy load in the Back office truck search page
+   [Tags]  86    Smoke  Admin
+#   Kion_App.Go to login page
+#   Kion_App.Login with admin login credentials
+   Kion_App.Verify the Admin truck search sorting and lazy load
+   Kion_App.Go Home
+
+To verify the Back Office Equipment details page
+   [Tags]  87    Smoke  Admin
+#   Kion_App.Go to login page
+#   Kion_App.Login with admin login credentials
+   Kion_App.verify the admin login truck details page
+   Kion_App.Go Home
+
+To verify the search criteria in the Back office installation report page
+   [Tags]  88    Smoke  Admin
+#   Kion_App.Go to login page
+#   Kion_App.Login with admin login credentials
+   Kion_App.Verify the admin installation report search
+   Kion_App.Go Home
+
+
+To verify the sorting option and lazy load in the Back Office installation report page
+   [Tags]  89    Smoke  Admin
+#   Kion_App.Go to login page
+#   Kion_App.Login with admin login credentials
+   Kion_App.Verify the admin installation report sorting and lazy load
+   Kion_App.Go Home
+
+
+To verify the search criteria in the Back Office warranty management page
+   [Tags]  95    Smoke  Admin
+#   Kion_App.Go to login page
+#   Kion_App.Login with admin login credentials
+   Kion_App.Verify the admin warranty search criteria
+   Kion_App.Go Home
+
+To verify the sorting option and lazy load in the Back office warranty page
+   [Tags]  96    Smoke  Admin
+#   Kion_App.Go to login page
+#   Kion_App.Login with admin login credentials
+   Kion_App.Verify the admin warranty sorting option
+   Kion_App.Verify the Admin warranty lazy load
+   Kion_App.Go Home
+
+To verify the perform bulk Approval link in the back office warranty management page
+   [Tags]  97    Smoke  Admin
+#   Kion_App.Go to login page
+#   Kion_App.Login with admin login credentials
+   Kion_App.Verify the bulk approval page
+   Kion_App.Go Home
+To verify the Truck claim details page as a back office warranty management page
+   [Tags]  98    Smoke  Admin
+#   Kion_App.Go to login page
+#   Kion_App.Login with admin login credentials
+   Kion_App.Verify the truck claim details page for admin
+   Kion_App.Go Home
+
+To verify the Part claim details page as a back office warranty management page
+   [Tags]  99    Smoke  Admin
+#   Kion_App.Go to login page
+#   Kion_App.Login with admin login credentials
+   Kion_App.Verify the Part claim details page for admin
+   Kion_App.Go Home
+
+To verify the Freight claim details page as a back office warranty management page
+   [Tags]  100    Smoke  Admin
+#   Kion_App.Go to login page
+#   Kion_App.Login with admin login credentials
+   Kion_App.Verify the Freight claim details page for admin
+   Kion_App.Go Home

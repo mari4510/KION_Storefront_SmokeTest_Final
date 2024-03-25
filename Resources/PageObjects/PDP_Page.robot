@@ -37,12 +37,12 @@ ${minicart_Close} =  //div[@class='block-content']//a[@data-toggle='collapse']
 *** Keywords ***
 Go to PDP
     mouse down    ${TopNav_LindeDropdown}
-    sleep    2s
+    #sleep    2s
     double click element    ${DropdownKitsLink}
-    sleep    5s
+    #sleep    5s
     click element    ${SortBy}
     click element    ${AscendingOrder}
-    sleep    5s
+    #sleep    5s
     click element    ${ProductIDforPDP_Page}
 
 Click add to worksheet button
@@ -52,50 +52,56 @@ Click add to worksheet button
 
 Go to current worksheet and verify the product
     Click Element    ${Availability&Pricing_Link}
-    Sleep    3s
+    #Sleep    3s
+    Wait Until Page Contains    ${Product_Name}
     page should contain    ${Product_Name}
 
 Go Alternative product PDP
-    sleep    5s
+    Wait Until Page Contains Element    ${Search_Icon}
     click element   ${Search_Icon}
-    sleep    2s
+    Sleep    2s
     input text    ${Searbox}    ${AlternativeProduct_ID}
     click element    ${Searchbox_SearchIcon}
-    sleep    5s
+    Wait Until Page Contains Element    ${AlternativeProductWorkSheetButton}
     click element    ${AlternativeProductWorkSheetButton}
-    sleep  5s
+    Sleep    2s
     Click Element    ${minicart_Close}
 Go Breakdown product PDP
-    sleep    5s
+    Wait Until Page Contains Element    ${Search_Icon}
     click element   ${Search_Icon}
     sleep    2s
     input text    ${Searbox}    ${BreakDownProduct_ID}
     click element    ${Searchbox_SearchIcon}
     click element    ${BreakDownProduct_Locator}
-    sleep    3s
+    Wait Until Page Contains Element    ${BreakDownProductWorkSheetButton}
     click element    ${BreakDownProductWorkSheetButton}
     sleep    2s
-    Wait Until Element Is Visible    ${BreakDownAlertPopup_Ok}
+    Wait Until Page Contains Element   ${BreakDownAlertPopup_Ok}
     click element    ${BreakDownAlertPopup_Ok}
-    sleep  3s
+    Sleep    2s
+    Wait Until Page Contains    Worksheet Order Total
     ${status}=    Run Keyword And Return Status    Page Should Contain    Worksheet Order Total
     Run Keyword If    '${status}' == 'True'    Click Element    ${minicart_Close}
     ...    ELSE  Log    message
 Go replacement product PDP
-    sleep    5s
+    #sleep    5s
     click element   ${Search_Icon}
     sleep    2s
+    Wait Until Page Contains Element    ${Searbox}
     input text    ${Searbox}    ${ReplacementProduct_ID}
     click element    ${Searchbox_SearchIcon}
-    sleep    5s
+    #sleep    5s
+    Wait Until Page Contains Element     ${ReplacementProduct_Locator}
     click element    ${ReplacementProduct_Locator}
-    sleep    3s
+    #sleep    3s
+    Wait Until Page Contains Element    ${ReplacementProductWorkSheetButton}
     click element    ${ReplacementProductWorkSheetButton}
-    Sleep    5s
+    Sleep    2s
     Wait Until Element Is Visible    ${minicart_Close}
     Click Element    ${minicart_Close}
 Go to current worksheet and verify the all type of product
-    sleep    2s
+    #sleep    2s
+    Wait Until Page Contains Element    ${Availability&Pricing_Link}
     click element    ${Availability&Pricing_Link}
     sleep    2s
     page should contain    ${AlternativeProductName_01}
