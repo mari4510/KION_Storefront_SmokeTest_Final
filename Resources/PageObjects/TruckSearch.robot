@@ -84,6 +84,7 @@ Serialnumber field search
   Page Should Contain Element    ${FT_WarrantyEndDateColumn}
   Page Should Contain Element    ${FT_EXTWarrantyEndDateColumn}
   Page Should Contain Element    ${FT_CustomerNameColumn}
+  Click Element    ${FT_ClearSearchButton}
 
 Description field search
   Input Text    ${FT_DescriptionField}    ${FT_DescriptionValue}
@@ -96,55 +97,72 @@ Description field search
   Page Should Contain Element    ${FT_WarrantyEndDateColumn}
   Page Should Contain Element    ${FT_EXTWarrantyEndDateColumn}
   Page Should Contain Element    ${FT_CustomerNameColumn}
+  Click Element    ${FT_ClearSearchButton}
 
 Verify the history button for current dealer truck
   Input Text    ${FT_SerialNumberField}    ${FT_SerialNumber}
   Click Element    ${FT_FindSerialNumberButton}
   Page Should Contain Element    ${FTD_HistoryButton}
+  Click Element    ${FTD_BackButton}
 
 Verify the history button for other dealer truck
   Input Text    ${FT_SerialNumberField}    ${FT_SunbeltSerial}
   Click Element    ${FT_FindSerialNumberButton}
   Page Should not Contain Element    ${FTD_HistoryButton}
+  Click Element    ${FTD_BackButton}
 
 Verify the sorting and searching
   Click Element    ${FT_SearchTrucksButton}
   Click Element    ${FT_SerialNumberColumn}
   Sleep    3s
+  Wait Until Page Contains    ${FT_SerialNumberColumnAsc}
   Page Should Contain    ${FT_SerialNumberColumnAsc}
   Click Element    ${FT_TruckmodelColumn}
   Sleep    2s
+  Wait Until Page Contains    ${FT_TruckmodelColumnAsc}
   Page Should Contain    ${FT_TruckmodelColumnAsc}
   Click Element    ${FT_InstallTypeColumn}
-  Sleep    2s
+  #Sleep    2s
+  Wait Until Page Contains    ${FT_InstallTypeColumnAsc}
   Page Should Contain    ${FT_InstallTypeColumnAsc}
   Click Element    ${FT_InstallDateColumn}
   Sleep    2s
+  Wait Until Page Contains Element     ${FT_InstallDateColumn}
   Click Element    ${FT_InstallDateColumn}
   Sleep    2s
+  Wait Until Page Contains    ${FT_InstallDateColumnDsc}
   Page Should Contain    ${FT_InstallDateColumnDsc}
   Click Element    ${FT_WarrantyEndDateColumn}
   Sleep    2s
+  Wait Until Page Contains Element    ${FT_WarrantyEndDateColumn}
   Click Element    ${FT_WarrantyEndDateColumn}
   Sleep    2s
+  Wait Until Page Contains    ${FT_WarrantyEndDateColumnDsc}
   Page Should Contain    ${FT_WarrantyEndDateColumnDsc}
   Click Element    ${FT_EXTWarrantyEndDateColumn}
   Sleep    2s
+  Wait Until Page Contains Element    ${FT_EXTWarrantyEndDateColumn}
   Click Element    ${FT_EXTWarrantyEndDateColumn}
   Sleep    2s
+  Wait Until Page Contains    ${FT_EXTWarrantyEndDateColumnDsc}
   Page Should Contain    ${FT_EXTWarrantyEndDateColumnDsc}
   Click Element    ${FT_CustomerNameColumn}
-  Sleep    3s
+  Sleep    2s
+  #Click Element    ${FT_CustomerNameColumn}
+  #Sleep    3s
+  Wait Until Page Contains    ${FT_CustomerNameColumnDsc}
   Page Should Contain    ${FT_CustomerNameColumnDsc}
   Click Element    ${FT_SearchTrucksButton}
-  Sleep    2s
+  #Sleep    2s
   Execute JavaScript    window.scrollBy(0,400)
-  sleep    5s
+  #sleep    5s
+  Wait Until Page Contains Element    ${FT_serialno_10}
   page should contain element    ${FT_serialno_10}
   Execute Javascript   document.querySelector('.table-responsive.freeze-header.min-records').scrollTop=100;
-  sleep    5s
+  sleep    3s
   Execute Javascript   document.querySelector('.table-responsive.freeze-header.min-records').scrollTop=800;
-  Sleep    3s
+  #Sleep    3s
+  Wait Until Page Contains Element    ${FT_serialno_20}
   page should contain element    ${FT_serialno_20}
   page should not contain element    ${FT_serialno_21}
 
@@ -152,7 +170,9 @@ go to Equipment details page and verify contents
   Input Text    ${FT_SerialNumberField}    ${FT_SerialNumber}
   Click Element    ${FT_SearchTrucksButton}
   Wait Until Element Is Visible    ${FT_TruckSerialLink}
+  Sleep    2s
   Click Element    ${FT_TruckSerialLink}
+  Sleep    2s
   Wait Until Page Contains  ${FTD_Heading}
   Page Should Contain    ${FTD_Heading}
   Page Should Contain    ${FTD_ModelDescriptionLabel}

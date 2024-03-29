@@ -28,7 +28,7 @@ ${ExportAsCSV_BTN} =    //button[@name='exportToCSV']
 ${OrderType_Dropdown} =    //select[@id='qcOrderType']
 ${Emergency_Order} =    //option[@value='Emergency']
 ${StockOrder} =    //option[@value='Stock']
-${SubmitButton} =    name:addToCart
+${SubmitButton} =    //button[@name='addToCart']
 ${ProceedToCheckout} =    //button[@name='registeredCheckout']
 ${Po-field} =    //input[@name='PrimaryPO']
 ${Po_Number} =    Test_123
@@ -45,12 +45,15 @@ go to Stock saved workseet
     click element    ${SavedUnplacedStockOrder_Link}
 
 Select the Emergency Order
+     Wait Until Page Contains Element    ${OrderType_Dropdown}
      click element    ${OrderType_Dropdown}
      click element    ${Emergency_Order}
      sleep    2s
 go to shoppingcart
-    Click Button    ${SubmitButton}
-    sleep    16s
+    Wait Until Page Does Not Contain    Please wait
+    Wait Until Page Contains Element     ${SubmitButton}
+    Click Element    ${SubmitButton}
+    sleep    5s
     ${status}=    Run Keyword And Return Status    Page Should Contain    Items have been added to your shopping cart
     Run Keyword If    '${status}' == 'True'    Click Element    ${CartAlert_Ok_Button}
     ...    ELSE    Log    Button not found

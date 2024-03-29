@@ -26,8 +26,9 @@ ${MathpublishProductPopup} =    The part you entered matches multiple materials,
 ${MathpublishProductsPopupWorksheet} =    //div[@class='modal fade in']//button[@name='AddWishlistItem'][normalize-space()='Add to Worksheet']
 ${Math_Product} =    CABLE
 ${ExportAsCSV_BTN} =    //button[@name='exportToCSV']
-${SaveWorkSheetBTN} =  //button[@title='Save Worksheet']
+${SaveWorkSheetBTN} =  //button[@class='btn btn-default save-worksheet']
 ${NewWorkSheetNameField} =  //input[@name='WishlistPropertiesForm_WishlistName']
+${Save_popup}       (//div[@class="modal-content"])[10]
 ${NewWorkSheetName} =  Auto_Stock
 ${SaveChangesBTN} =  //button[@name='EditQuickOrderWishlistProperties']
 ${SaveWorksheetOkBTN} =  //a[@class='btn btn-primary']
@@ -63,12 +64,12 @@ Clear products
     ${status} =    Run Keyword And Return Status   Element Should Be Enabled   ${DeleteButton}
     Run Keyword If    '${status}' == 'True'    Click Element    ${DeleteButton}
     ...    ELSE  Log    message
-    Sleep    3s
+    #Sleep    3s
     #click element    ${DeleteButton}
 
 Upload the CSV file in the current worksheet
     Choose File     ${Choosefile_Button}    ${CSV_File}
-    click element    ${Upload_Button}
+    click element    ${Upload_Button}   
     Wait Until Page Contains    ${File_Product_01}
     page should contain    ${File_Product_01}
     page should contain    ${File_Product_02}
@@ -79,9 +80,10 @@ Upload the CSV file in the current worksheet
 CSV file for Stock type order in the current worksheet
     Scroll Page    0    -100
     Choose File     ${Choosefile_Button}    ${XLSX_File}
-    Sleep    2S
+    #Sleep    2S
     click element    ${Upload_Button}
-    Sleep    3s
+    #Sleep    3s
+    Wait Until Page Contains    ${File_Product_01}
     page should contain    ${File_Product_01}
     page should contain    ${File_Product_02}
     page should contain    ${File_Product_03}
@@ -89,7 +91,9 @@ CSV file for Stock type order in the current worksheet
     page should contain    ${File_Product_05}
 Upload the XLSX file in the current worksheet
     Choose File     ${Choosefile_Button}    ${XLSX_File}
+    Wait Until Element Is Enabled   ${Upload_Button}
     click element    ${Upload_Button}
+    Wait Until Page Contains    ${File_Product_01}
     page should contain    ${File_Product_01}
     page should contain    ${File_Product_02}
     page should contain    ${File_Product_03}
@@ -97,50 +101,61 @@ Upload the XLSX file in the current worksheet
     page should contain    ${File_Product_05}
 
 upload a mathpublish id
+    Wait Until Element Is Enabled    ${Choosefile_Button}
     Choose File     ${Choosefile_Button}    ${MathPublishID_File}
+    Wait Until Element Is Enabled   ${Upload_Button}
     click element    ${Upload_Button}
-    sleep    2s
+    #sleep    2s
+    Wait Until Page Contains    ${MathpublishPopup_Heading}
     page should contain    ${MathpublishPopup_Heading}
     page should contain element    ${MathpublishPopup_DeleteAll}
-    sleep    2s
+    #sleep    2s
     click element    ${MathpublishID}
     page should contain     ${MathpublishProductPopup}
-    sleep    2s
+    #sleep    2s
+    Wait Until Page Contains Element    ${MathpublishProductsPopupWorksheet}
     click element    ${MathpublishProductsPopupWorksheet}
-    sleep    2s
+    #sleep    2s
+    Wait Until Page Contains    ${Math_Product}
     page should contain     ${Math_Product}
-    sleep    2s
+    #sleep    2s
     click element    ${MathpublishPopup_DeleteAll}
 
 
 Export the current worksheet
     Choose File     ${Choosefile_Button}    ${XLSX_File}
     click element    ${Upload_Button}
-    sleep    3s
+    Wait Until Page Contains Element    ${ExportAsCSV_BTN}
     click element    ${ExportAsCSV_BTN}
-
+    #Sleep    3s
+    
 Select the Emergency Order
+     Execute JavaScript    window.scrollTo(500,0)
      click element    ${OrderType_Dropdown}
      click element    ${Emergency_Order}
-     sleep    2s
+     #sleep    2s
 
 go to shoppingcart
-    Click Button    ${SubmitButton}
-    sleep    5s
+    Wait Until Page Contains Element     ${SubmitButton}
+    Click Element    ${SubmitButton}
+    sleep    2s
     ${status}=    Run Keyword And Return Status    Page Should Contain    Items have been added to your shopping cart
     Run Keyword If    '${status}' == 'True'    Click Element    ${CartAlert_Ok_Button}
     ...    ELSE  Log    message
-    Sleep    3s
+#    Sleep    3s
 
 go to checkout
+    #sleep    2s
+    Wait Until Page Contains Element    ${ProceedToCheckout}
     click element    ${ProceedToCheckout}
-    sleep    5s
+    #sleep    3s
 
 Place the Order
     input text    ${Po-field}    ${Po_Number}
     click element    ${TermsAndConditions}
     click element    ${PlaceOrderNow_Button}
-    sleep     5s
+    #sleep     5s
+    Wait Until Page Contains Element    ${OrderConfirmationHeading}
     page should contain element    ${OrderConfirmationHeading}
     Click Element    ${OrderConfirmationLogo}
 
@@ -152,13 +167,14 @@ Place the Order and verify all commponents in orderconfirmation page
     page should contain element    ${OrderConfirmationHeading}
 
 Select the Stock Order
+    Execute JavaScript    window.scrollTo(500,0)
     click element    ${OrderType_Dropdown}
     click element    ${StockOrder}
 
 Add a <500 product
     Scroll Page    0    -100
     Choose File     ${Choosefile_Button}    ${Stock_CSV}
-    Sleep    3s
+    #Sleep    3s
     click element    ${Upload_Button}
 
 Add product to worksheet
@@ -172,8 +188,11 @@ Save a Stock worksheet
     Sleep    2s
     Click Element    ${OrderType_Dropdown}
     Click Element    ${StockOrder}
+    #Sleep    2s
+    Wait Until Page Contains Element    ${SaveWorkSheetBTN}
     Click Element    ${SaveWorkSheetBTN}
-    Sleep    3s
+    Sleep    2s
+    Wait Until Page Contains Element    ${NewWorkSheetNameField}
     Input Text    ${NewWorkSheetNameField}    ${NewWorkSheetName}
     Click Element    ${SaveChangesBTN}
     Wait Until Element Is Visible    ${SaveWorksheetOkBTN}

@@ -41,7 +41,7 @@ ${FirstrowpurchaseOrderNumerField} =  //tbody[@id='results-body']//tr[1]//td[4]
 ${DateRangeOrder} =    2630118
 ${EmergencyText} =    Emergency
 ${CompletedOrderText} =    Completed
-${FirstOrderNumber} =    	2598716
+${FirstOrderNumber} =    2569535
 ${PO_OrderNumberHeader} =    //th[@data-sort='DocumentNo']
 ${PO_PurchaseOrderNumberHeader} =    //th[@data-sort='PONumber']
 ${PO_PurchaseOrderDateHeader} =    //th[@data-sort='CreationDate']
@@ -114,29 +114,33 @@ Verify the page elements
     page should contain element    ${SearchButton}
     page should contain element    ${ResetButton}
     page should contain element    ${PrintButton}
-    sleep    5s
+    sleep    2s
     Execute JavaScript    window.scrollBy(0,800)
-    sleep    5
+    sleep    2s
     page should contain element    ${serialno_10}
     Execute Javascript   document.querySelector('#OfflineOrderSearchResultsDiv').scrollTop = 650;
-    sleep    5s
+    sleep    2s
     page should contain element    ${serialno_20}
     page should not contain element   ${serialno_21}
 
 Default search
     click element    ${SearchButton}
     page should contain element    ${serialno_10}
-
+    Click Element    ${MyAccount_PlacedOrders_Link}
 Order No search
+    Wait Until Page Contains Element    ${OrderNumberSearch_field}
     input text    ${OrderNumberSearch_field}    ${OrderNumber_Value}
     click element    ${searchbutton}
+    Sleep    2s
     ${Expected_Order}=  set variable     ${OrderNumber_Value}
     ${actual_Order}=  get text    ${FirstrowOrderNumerField}
     Should Be Equal As Numbers    ${Expected_Order}  ${actual_order}
     #page should contain    ${OrderNumber_Value}
-    click element  ${ResetButton}
+    #click element  ${ResetButton}
+    Click Element    ${MyAccount_PlacedOrders_Link}
     
 Search the completed orders
+    Wait Until Page Contains Element    ${OrderNumberSearch_field} 
     input text    ${OrderNumberSearch_field}    ${OrderNumber_Value_ForTrackIt}
     click element    ${searchbutton}
     Sleep    2s
@@ -148,6 +152,7 @@ Search the completed orders
     #page should contain    ${OrderNumber_Value_ForTrackIt}
 
 TrackIt Link verfication
+    Wait Until Page Contains Element    ${FirstOrderNumberFromSearchResult}
     Click Element    ${FirstOrderNumberFromSearchResult}
     Click Element    ${DeliveryNumber}
     Page Should Contain     ${TrackItLinkText}
@@ -157,52 +162,69 @@ TrackIt Link verfication
     Switch Window   MAIN
 
 Purchase Order number search
+    Wait Until Page Contains Element    ${PurchaseOrderNumberSearchField}
     input text    ${PurchaseOrderNumberSearchField}    ${PurchaseOrderNumber}
     click element    ${searchbutton}
+    Sleep    2s
     ${status}=    Run Keyword And Return Status    SeleniumLibrary.Page Should Contain Element    ${FirstrowPurchaseOrderNumerField}
     ${variable}=    Set Variable If    '${status}' == 'PASS'    True    False
     #${variable}=    SeleniumLibrary.Page Should Contain Element    ${FirstrowPurchaseOrderNumerField}
     Run Keyword If    '${variable}' == True    Purchase order number verification 1
     ...    ELSE IF    '${variable}' == False   Purchase order number verification 2
-    click element    ${ResetButton}
-    sleep    1s
+    #click element    ${ResetButton}
+    Click Element    ${MyAccount_PlacedOrders_Link}
+    #sleep    1s
 
 Purchase Order date range
+    Wait Until Element Is Visible    ${PurchaseOrderDateRange_Fromfield}
     input text    ${PurchaseOrderDateRange_Fromfield}    ${PurchaseOrderFromDate}
     input text    ${purchaseorderdaterange_tofield}    ${PurchaseOrderTodate}
     click element    ${SearchButton}
+    Wait Until Page Contains    ${DateRangeOrder}
     page should contain    ${DateRangeOrder}
-    click element    ${resetbutton}
-    sleep    3s
+    #click element    ${resetbutton}
+    Click Element    ${MyAccount_PlacedOrders_Link}
+    #sleep    3s
 OrderType Search
     Execute JavaScript    window.scrollTo(250,0)
+    Wait Until Element Is Visible    ${PC_OrderTypeDropDown}
     click element    ${PC_OrderTypeDropDown}
-    Sleep    2s
+    Wait Until Element Is Visible    ${OrderType_Emergency}
     click element    ${OrderType_Emergency}
-    Sleep    1s
+    #Sleep    1s
     click element    ${SearchButton}
-    sleep    5s
+    Wait Until Page Contains    ${EmergencyText}
     page should contain    ${EmergencyText}
-    click element    ${ResetButton}
-    sleep    3s
+    #click element    ${ResetButton}
+    Click Element    ${MyAccount_PlacedOrders_Link}
+    #sleep    3s
 Order status search
+    Execute Javascript  window.scrollTo(400,0)
+    Wait Until Element Is Visible    ${OrderStatusDropDown}
     click element    ${OrderStatusDropDown}
     click element    ${CompletedOrderStatus}
     click element    ${searchbutton}
-    sleep    5s
+    #sleep    2s
+    Wait Until Page Contains    ${CompletedOrderText}
     page should contain    ${CompletedOrderText}
-    click element    ${ResetButton}
-    sleep    3s
+    #click element    ${ResetButton}
+    Click Element    ${MyAccount_PlacedOrders_Link}
+    #sleep    3s
 Part number search
+    Wait Until Element Is Visible   ${partnumbersearchfield}
     input text    ${partnumbersearchfield}    ${partnumber}
     click element    ${SearchButton}
-    click element    ${ResetButton}
-    sleep    3s
+    #click element    ${ResetButton}
+    Click Element    ${MyAccount_PlacedOrders_Link}
+    #sleep    3s
 Ascending search
     click element    ${AscendingRadioButton}
     click element    ${SearchButton}
+    Wait Until Page Contains    ${FirstOrderNumber}
     page should contain    ${FirstOrderNumber}
-    click element    ${ResetButton}
+    #click element    ${ResetButton}
+    Click Element    ${MyAccount_PlacedOrders_Link}
+
 
 Header sorting options
     click element    ${PO_OrderNumberHeader}
@@ -239,6 +261,7 @@ Order No Decend sorting
   Sleep    2s
   Click Element    ${PO_OrderNumberHeader}
 Order no for verify the details
+  Click Element    ${MyAccount_PlacedOrders_Link}
   Click Element    ${OrderNumber_For_Details}
 Verify the Order details page contents
   Page Should Contain    ${OD_Page_Heading}

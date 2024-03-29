@@ -31,11 +31,14 @@ Verify the footer section
     page should contain element    ${Back to top}
 
 Hover over the product and click add to worksheet
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Page Contains Element    ${Featured-Product-Name}
     Mouse Over    ${Featured-Product-Name}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Page Contains Element    ${Add to worksheet}
     click element    ${Add to worksheet}
     Wait Until Element Is Visible    ${minicart_Close}
+    #Wait Until Page Contains Element    ${minicart_Close}
     Click Element  ${minicart_Close}
 
 

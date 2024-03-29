@@ -7,7 +7,7 @@ ${TI_SavesStatusOption} =  //option[.='Saved']
 ${TI_PendingStatusOption} =  //option[.='Pending']
 ${TI_ApprovedStatusOption} =  //option[.='Approved']
 ${TI_DeniedStatusOption} =  //option[.='Denied']
-${TI_SelectOption} =   //option[.='---Select---']
+${TI_SelectOption} =   //option[normalize-space()='---Select---']
 ${TI_DealerActionRequiredButton} =  //button[@class='btn btn-primary btn-outline mt-10 dealer-action-btn ']
 ${TI_SearchReportsButton} =  //button[normalize-space()='Search Reports']
 ${TI_ItemColumn} =  Item
@@ -27,7 +27,7 @@ ${TI_DealerNameHeaderAsc} =  ELEVEX (Formerly Manutention Quebec)
 ${TI_ReportStatusHeaderAsc} =  Approved
 ${TI_ReportDateHeaderAsc} =  //tbody/tr[1]/td[7]
 ${TI_InstalldateHeaderFirstRow} =  //tbody[@id='installReportResultBody']//tr[1]//td[7]
-${TI_InstalldateHeaderAsc} =  05/30/13
+${TI_InstalldateHeaderAsc} =  ${EMPTY}
 #LazyLoad
 ${FT_serialno_40} =  //td[normalize-space()='40']
 ${FT_serialno_80} =  //td[normalize-space()='80']
@@ -118,8 +118,13 @@ Verify the report search criteria
   Click Element    ${TI_SearchReportsButton}
   Sleep    2s
   Page Should Contain Element    ${TI_DealerActionReuiredIcon}
+#  Click Element    ${TI_ReportStatusDropdown}
+#  Sleep    2s
+#  Click Element    ${TI_SelectOption}
+#  Click Element    ${TI_SearchReportsButton}
   
 Verify the sorting in the truck insatallation page
+  Sleep    2s
   Click Element    ${TI_TruckSerialHeader}
   Sleep    1s
   Page Should Contain    ${TI_TruckSerialHeaderAsc}

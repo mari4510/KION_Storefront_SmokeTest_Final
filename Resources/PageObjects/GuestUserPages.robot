@@ -17,15 +17,15 @@ ${Category_Heading} =    Parts
 ${PLP_Page_Heading} =    //li[@class='breadcrumbs-list breadcrumbs-list-active']
 ${SortBy} =    //select[@id='SortingAttribute']
 ${AscendingOrder} =    //option[@value='name-asc']
-${ProductName_PLP} =    //div[11]//div[1]//div[2]//a[1]//span[1]
-${ProductName_PDP} =    Maintenance Decal 'KION Baoli 2 Brand
-${Product_Image} =    //img[@alt="Maintenance Decal 'KION Baoli 2 Brand product photo Front View L"]
+${ProductName_PLP} =    //span[normalize-space()='50 HR Maintenance Kit']
+${ProductName_PDP} =   50 HR Maintenance Kit
+${Product_Image} =    //span[@class='plp-img1']//img[@title='50 HR Maintenance Kit']
 ${Product_SupportImage} =    //img[@data-type='S']
-${Product_Sku} =    L0009387522
+${Product_Sku} =    14010086506
 ${Breadcrumb_Guest} =    //div[@class='breadcrumbs row']
 ${ProductBrand} =    Brand: Linde
-${Product_Price} =    $ 6.00
-${ProductShort_Description} =    Maintenance Decal 'KION Baoli 2 Brand
+${Product_Price} =    $ 483.00
+${ProductShort_Description} =    50 HR Maintenance Kit
 ${Recently_Viewed_Heading} =    Recently Viewed
 ${Searbox} =    //div[@id='header-searchbox']//input[@placeholder='Enter keywords to search...']
 ${Searchbox_SearchIcon} =    //div[@id='header-searchbox']//i[@class='icon-search']
@@ -67,6 +67,7 @@ go to guest PLP
     click element    ${ascendingorder}
 
 go to guest PDP
+    Wait Until Element Is Visible    ${ProductName_PLP}
     click element    ${ProductName_PLP}
 
 
@@ -85,6 +86,7 @@ Verify the Guest_PDP contents
 go to SRP page
     click element    ${Search_Icon}
     Sleep    2s
+    #Wait Until Page Contains Element    ${Searbox}
     input text    ${Searbox}    ${SearchTerm_ValidTerm}
     click element    ${Searchbox_SearchIcon}
     page should contain    ${SearchTerm_ValidTerm}

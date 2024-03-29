@@ -17,7 +17,9 @@ Logout Dealer
   Click Element    ${Logout}
 
 Go Admin Login
+    Wait Until Page Contains Element    ${Admin_Login_Link}
     Click Element    ${Admin_Login_Link}
+    Sleep    2s
     Wait Until Page Contains    ${AdminLoginPageHeader}
     Page Should Contain  ${AdminLoginPageHeader}
 

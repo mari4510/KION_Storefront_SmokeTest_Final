@@ -12,21 +12,26 @@ ${ComparePage_Product_Name} =    fork arm '1250A2-100x45x1100 CCTV
 ${close_Miniworksheet} =    //div[@class='block-content']//a[@data-toggle='collapse']
 *** Keywords ***
 click compare icon from PDP page
-  sleep    5s
+  #sleep    2s
+  Wait Until Page Contains Element    ${Search_Icon}
   click element    ${Search_Icon}
   sleep    2s
+  Wait Until Page Contains Element    ${Searbox}
   input text    ${Searbox}     ${ProductID}
   click element    ${Searchbox_SearchIcon}
   click element    ${PDP_CompareIcon}
   page should contain    ${ComparePage_Product_Name}
-  sleep    5s
+  #sleep    5s
 Click add to worksheet button in compare page
+    #Sleep    2s
     click element    ${AddToWorkSheet_Compare}
-    Sleep    3s
+    #Sleep    2s
+    Wait Until Element Is Visible   ${close_Miniworksheet}
+    Sleep    1s
     Click Element    ${close_Miniworksheet}
     
 Verify the compare page product in current worksheet
-    Sleep    8s
+    #Sleep    8s
     click element    ${Availability&Pricing_Link}
-    sleep    4s
+    #sleep    4s
     page should contain    ${ComparePage_Product_Name}

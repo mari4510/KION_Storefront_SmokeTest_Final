@@ -21,35 +21,47 @@ ${Kits_Link_DropDown} =    //a[normalize-space()='Kits']
 ${PLP_Page_Heading} =    //li[@class='breadcrumbs-list breadcrumbs-list-active']
 *** Keywords ***
 Click Kits link
+    #Wait Until Page Contains Element    ${Linde_Link}
     mouse down    ${Linde_Link}
-    sleep    2s
+    #sleep    2s
+    #Wait Until Page Contains Element    ${Kits_Link_DropDown}
     mouse down    ${Kits_Link_DropDown}
     double click element    ${Kits_Link_DropDown}
-    sleep    2s
+    #sleep    2s
+    Wait Until Page Contains Element    ${plp_page_heading}
     page should contain element    ${plp_page_heading}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Page Contains Element    ${SortBy}
     click element    ${sortby}
+    Wait Until Page Contains Element    ${ascendingorder}
     click element    ${ascendingorder}
 
 Add a product to worksheet
     ${x}=        Get Horizontal Position  ${Product_Image_01}
     ${y}=        Get Vertical Position   ${Product_Image_01}
     Execute Javascript  window.scrollTo(${x}, ${y})
+    Wait Until Page Contains Element    ${Add-to-worksheet-link}
     click element    ${Add-to-worksheet-link}
     page should contain element    ${Add-to-worksheet-link}
+    #Wait Until Page Contains Element    ${minicart_Close}
     Wait Until Element Is Visible    ${minicart_Close}
     Click Element    ${minicart_Close}
 
 Select ascending order in sort by
+    Execute JavaScript    window.scrollTo(400,0)
+    Wait Until Page Contains Element    ${sortby}
     click element    ${sortby}
+    Wait Until Page Contains Element    ${ascendingorder}
     click element    ${ascendingorder}
 
 Click the quick view button
     Mouse Over    ${Product_Image_02}
+    Wait Until Page Contains Element    ${PLP_QuickView}
     click element    ${PLP_QuickView}
-    Sleep    1s
+    #Sleep    1s
 
 click the Quick view add to worksheet button
+    Sleep    2s
     Wait Until Page Contains Element    ${QuickView_AddtoWorksheet}
     click button    ${QuickView_AddtoWorksheet}
     Wait Until Element Is Visible    ${minicart_Close}
@@ -65,12 +77,17 @@ Verify the refinement section
     click element    ${OrderTemplateSection}
 
 click list view icon
+    Execute JavaScript    window.scrollTo(500,0)
+    Wait Until Page Contains Element    ${ListViewButton}
     click element   ${ListViewButton}
 
 click add worksheet button in list view
+    Wait Until Page Contains Element    ${ListViewAddtoWorksheetButton}
     click element   ${ListViewAddtoWorksheetButton}
-    Sleep    3s
+    #Sleep    2s
+    Wait Until Element Is Visible   ${minicart_Close}
     Click Element    ${minicart_Close}
 click gridview icon
     Execute JavaScript    window.scrollTo(500,0)
+    Wait Until Page Contains Element    ${GridViewButton}
     click element    ${GridViewButton}

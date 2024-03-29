@@ -91,7 +91,8 @@ Go to admin truck search
 Dealernumber search
   Input Text    ${SR_DealerNumberField}    ${SR_DealerNumberValue}
   Click Element    ${SR_SearchTrucksButton}
-  Wait Until Page Contains Element    ${SR_DealernumberSearchResult}
+  #Sleep    2s
+  Wait Until Page Contains Element    ${SR_DealernumberSearchResult}  10s
   Page Should Contain Element    ${SR_DealernumberSearchResult}
 
 #Serialnumber field search
@@ -171,7 +172,11 @@ Verify the sorting and searching
 go to Equipment details page and verify contents
 #  Input Text    ${ATS_SerialNumberField}    ${ATS_SerialNumber}
 #  Click Element    ${SR_SearchTrucksButton}
-  Wait Until Element Is Visible    ${ATS_TruckSerialLink}
+  Execute Javascript  window.scrollTo(0,0)
+  Sleep    2s
+  Click Element    ${ATS_SerialNumberColumn}
+  Sleep    2s
+  #Wait Until Element Is Visible    ${ATS_TruckSerialLink}
   Click Element    ${ATS_TruckSerialLink}
   Wait Until Page Contains  ${ATD_Heading}
   Page Should Contain    ${ATD_Heading}

@@ -68,36 +68,37 @@ go to My Account Overview
 go to saved Unplaced Order page
     click element    ${SavedUnplaced_Order_Link}
     page should contain    ${SavedUnplaced_Order_PageHeading}
-    Sleep    1s
+    #Sleep    1s
 go to pending purchases page
     click element    ${Pending_Purchases_Link}
     page should contain    ${Pending_Purchases_PageHeading}
-    Sleep    1s
+    #Sleep    1s
 go to rejected purchases page
     click element    ${Rejected_Purchases_Link}
     page should contain    ${Rejected_Purchases_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 go to Order templates page
     click element    ${OrderTemplates_Link}
     page should contain    ${OrderTemplates_PageHeading}}
-    Sleep    2s
+    #Sleep    2s
 go to subscription page
     click element    ${Subscription_Link}
     page should contain    ${Subscription_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 go to placed order page
     click element    ${PlacedOrders_Link}
     page should contain    ${PlacedOrders_PageHeading}
-    Sleep    2s
+    #Sleep    2s
+
 go to order details page
     click element    ${OrderDetails_Link}
     page should contain    ${OrderDetails_Heading}
-    Sleep    2s
+    #Sleep    2s
 
 go to back orders page
     click element    ${BackOrders_Link}
     page should contain    ${BackOrders_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 go to back orders details
     click element    ${BackOrderID}
     page should contain    ${BackOrdersDetails_Heading}
@@ -105,60 +106,67 @@ go to back orders details
 go to truck sales page
     click element    ${TruckSales_Link}
     page should contain    ${TruckSales_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 go to returns page
     click element    ${Returns_Link}
     page should contain    ${Returns_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 Expand Product support section
-     Wait Until Element Is Visible    ${ProductSupport_Link}
+    Wait Until Element Is Visible    ${ProductSupport_Link}
     click element    ${ProductSupport_Link}
-    Sleep    1s
+    #Sleep    1s
 go to warranty page
     click element    ${Warranty_Link}
     page should contain    ${Warranty_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 go to truck installation page
     click element    ${TruckInstallation_Link}
     page should contain    ${TruckInstallation_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 go to truck search page
+    Sleep    2s
     click element    ${TruckSearch_Link}
     page should contain    ${TruckSearch_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 Expand Approval section
     click element    ${MyApprovals_Link}
     Wait Until Element Is Visible    ${PurchasetoApprove_Link}
 go to purchase to Approve page
+    Wait Until Element Is Visible    ${PurchasetoApprove_Link}
     click element    ${PurchasetoApprove_Link}
     page should contain    ${PurchasetoApprove_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 go to Approval Approved purchases page
+    Wait Until Element Is Visible    ${App_Approved_Purchases}
     click element    ${App_Approved_Purchases}
     page should contain    ${App_Approved_Purchases_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 go to Approval Rejected purchases page
+    Wait Until Element Is Visible    ${App_Rejected_Purchases}
     click element    ${App_Rejected_Purchases}
     page should contain    ${App_Rejected_Purchases_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 Expand the Notification section
     click element    ${Notification_Link}
-    Sleep    2s
+    #Sleep    2s
 go to backIn Stock notification page
+    Wait Until Element Is Visible    ${BackInStock_Link}
     click element    ${BackInStock_Link}
     page should contain    ${BackInStock_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 go to Chages in price notification page
+    Wait Until Element Is Visible    ${Changein_Price_Link}
     click element    ${Changein_Price_Link}
     page should contain    ${Changein_Price_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 Expand the My profile section
     click element    ${MyProfile_Link}
-    Sleep    1s
+    #Sleep    1s
 go to profile setting page
+    Wait Until Element Is Visible    ${ProfileSetting_Link}
     click element    ${ProfileSetting_Link}
     page should contain    ${ProfileSetting_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 Expand My Organization section
     click element    ${MyOrganaization_Link}
 
@@ -166,18 +174,21 @@ go to Addresses page
     Wait Until Element Is Visible    ${Addresses_Link}
     click element    ${Addresses_Link}
     page should contain    ${Addresses_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 go to Payment page
+    Wait Until Element Is Visible    ${Payment_Link}
     click element    ${Payment_Link}
     page should contain    ${Payment_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 
 go to Users page
+    Wait Until Element Is Visible    ${Users_Link}
     click element    ${Users_Link}
     page should contain    ${Users_PageHeading}
-    Sleep    2s
+    #Sleep    2s
 
 go to truck transfer page
+    Wait Until Element Is Visible    ${MA-TruckTransferLink}
     Click Element    ${MA-TruckTransferLink}
     Page Should Contain    ${MA_TruckTransferPageHeading}
-    Sleep    2s
+    #Sleep    2s

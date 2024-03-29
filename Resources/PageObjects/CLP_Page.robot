@@ -40,12 +40,12 @@ Verify the Order template section
     ${status} =    Run Keyword And Return Status   page should contain  Do you really want to delete this order template?
     Run Keyword If    '${status}' == 'True'    Click Element    ${OrderTempleteCancelButton}
     ...    ELSE  Log    message
-    Sleep    3s
+    #Sleep    3s
     click element    ${Ordertemplatesectionexpand}
     ${status} =    Run Keyword And Return Status   page should contain  Do you really want to delete this order template?
     Run Keyword If    '${status}' == 'True'    Click Element    ${OrderTempleteCancelButton}
     ...    ELSE  Log    message
-    Sleep    3s
+    #Sleep    3s
 
 Click maintanence category
     Execute JavaScript    window.scrollTo(500,0)

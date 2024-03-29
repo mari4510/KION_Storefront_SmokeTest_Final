@@ -102,25 +102,31 @@ Verify the backorder list page
    Page Should Contain Element    ${BO_ExpectedAvailDateColumnHeader}
 
 Verify the back orders list page Lazy load
-    sleep    5s
+    #sleep    3s
     Execute JavaScript    window.scrollBy(0,400)
-    sleep    5s
+    #sleep    3s
+    Wait Until Page Contains Element    ${BO_serialno_10}
     page should contain element    ${BO_serialno_10}
     Execute Javascript   document.querySelector('#TruckSearchResultsDiv').scrollTop = 300;
-    sleep    5s
+    sleep    2s
     page should contain element    ${BO_serialno_20}
     page should not contain element    ${BO_serialno_21}
+    Execute JavaScript    window.scrollTo(0,0)
 
 BackOrders Sorting
     [Documentation]  Pos column not clickable
     Click Element    ${BO_PartNoColumn}
-    Sleep    2s
+#    Sleep    2s
+    Wait Until Page Contains    ${BO_Partno_AscendValue}
     Page Should Contain  ${BO_Partno_AscendValue}
-    Sleep    2s
+#    Sleep    2s
+    Wait Until Page Contains Element  ${BO_PartNoColumn}
     Click Element    ${BO_PartNoColumn}
     Sleep    2s
+    Wait Until Page Contains Element   ${BO_OpenQtyColumn}
     Click Element    ${BO_OpenQtyColumn}
     Sleep    2s
+    #Wait For Condition    return document.readyState == "complete"
     ${Actual_Asc}=    Get Text    ${BO_OpenQuantity_AscendValue_01}
     ${expected_text}=    Set Variable    ${Expec_Asc}
     ${Actual_Asc}=    Set Variable    ${Actual_Asc.replace(' ', '')}  # Remove whitespace
@@ -130,51 +136,73 @@ BackOrders Sorting
     #${BO_OpenQuantity_AscendValue}    Set Variable  ${BO_OpenQuantity_AscendValue_01}\n${BO_OpenQuantity_AscendValue_02}
     #Page Should Contain  ${BO_OpenQuantity_AscendValue}
     Click Element    ${BO_OpenQtyColumn}
-    Sleep    2s
+#    Sleep    2s
+    Wait Until Element Is Enabled    ${BO_TotalColumn}
     Click Element    ${BO_TotalColumn}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Page Contains    ${BO_Total_AscendValue}
     Page Should Contain    ${BO_Total_AscendValue}
     Click Element    ${BO_TotalColumn}
     Sleep    2s
+    #Wait Until Element Is Visible    ${BO_OrderNoColumn}
     Click Element    ${BO_OrderNoColumn}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Page Contains    ${BO_Orderno_AscendValue}
     Page Should Contain    ${BO_Orderno_AscendValue}
     Click Element    ${BO_OrderNoColumn}
-    Sleep    2s
+    #Sleep    2s
     #Click Element    ${BO_PoSClumn}
     #Page Should Contain    ${BO_Pos_AscendValue}
     #Click Element    ${BO_PoSClumn}
+    Wait Until Element Is Enabled     ${BO_TypeColumn}
     Click Element    ${BO_TypeColumn}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Page Contains    ${BO_Type_AscendValue}
     Page Should Contain  ${BO_Type_AscendValue}
     Click Element    ${BO_TypeColumn}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Element Is Enabled    ${BO_OrderDateColumn}
     Click Element    ${BO_OrderDateColumn}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Page Contains    ${BO_OrderDate_AscendValue}
     Page Should Contain    ${BO_OrderDate_AscendValue}
     Click Element    ${BO_OrderDateColumn}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Element Is Enabled    ${BO_PoCOlumnHeader}
     Click Element    ${BO_PoCOlumnHeader}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Page Contains    ${BO_PoNo_AscendValue}
     Page Should Contain    ${BO_PoNo_AscendValue}
     Click Element    ${BO_PoCOlumnHeader}
-    Sleep    2s
+    Sleep    1s
+    Wait Until Element Is Visible    ${BO_ShipTypeColumnHeader}
     Click Element    ${BO_ShipTypeColumnHeader}
     Sleep    2s
+    Wait Until Page Contains    ${BO_ShipType_AscendValue}
     Page Should Contain    ${BO_ShipType_AscendValue}
     Click Element    ${BO_ShipTypeColumnHeader}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Element Is Enabled    ${BO_ShimentModeColumnHeader}
     Click Element    ${BO_ShimentModeColumnHeader}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Page Contains    ${BO_ShipMode_AscendValue}
     Page Should Contain    ${BO_ShipMode_AscendValue}
     Click Element    ${BO_ShimentModeColumnHeader}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Element Is Enabled    ${BO_ExpectedAvailDateColumnHeader}
     Click Element    ${BO_ExpectedAvailDateColumnHeader}
-    Sleep    2s
+    #Sleep    2s
+    Wait Until Page Contains    ${BO_EXPAvailDate_AscendValue}
     Page Should Contain    ${BO_EXPAvailDate_AscendValue}
     Click Element    ${BO_ExpectedAvailDateColumnHeader}
+    Sleep    1s
+    Click Element    ${BO_PartNoColumn}
+#    Sleep    2s
+    Wait Until Page Contains    ${BO_Partno_AscendValue}
 
 Go to back orders details page and verify the backorder details pagecontents
+   #Wait Until Page Contains Element    ${BOD_BackOrderNumber}
+   Sleep    2s
    Click Element    ${BOD_BackOrderNumber}
    Page Should Contain    ${BOD_BackOrderPageHeading}
    Page Should Contain    ${BOD_OrderNumberLabel}

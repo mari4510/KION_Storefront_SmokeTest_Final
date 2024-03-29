@@ -66,7 +66,7 @@ ${TTTD_InstallationPartnertoBranchCheckBox} =  //input[@id='installationPartner'
 ${TTTD_InstallationPartnertoBranchCheckBoxMessage} =  Transfer Installation Partner to Branch Account
 ${TTTD_ConfirmTransferButton} =  //button[@name='confirmtransfer']
 ${TTTD_CancelTransferButton} =  //a[@class='btn btn-primary']
-
+${TTTD_TransferbredCrumb} =  //a[@class='breadcrumbs-list-link'][normalize-space()='Truck Transfer']
 #LazyLoad
 ${TT_serialno_10} =  //td[normalize-space()='10']
 ${TT_serialno_20} =  //td[normalize-space()='20']
@@ -129,10 +129,12 @@ Search any valid truck and verify the equipment details page
     Page Should Contain    ${TTTD_SalestoBranchCheckBoxMessage}
     Page Should Contain Element    ${TTTD_ConfirmTransferButton}
     Page Should Contain Element    ${TTTD_CancelTransferButton}
-
+    Click Element    ${TTTD_TransferbredCrumb}
+   
 
 Verify the the sorting and lazy load in the truck transfer search page
-   Click Element    ${TT_SearchTrucksButton}
+  Wait Until Page Contains Element    ${TT_SearchTrucksButton}
+  Click Element    ${TT_SearchTrucksButton}
   Click Element    ${TT_SerialNumberColumn}
   Sleep    3s
   Page Should Contain    ${TT_SerialNumberColumnAsc}

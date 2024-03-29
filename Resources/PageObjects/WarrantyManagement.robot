@@ -74,6 +74,7 @@ ${WM_StatusHeaderFirstrow} =  //tbody[@id='warranty-results-body']//tr[1]//td[10
 ${WM_ClaimAmountHeaderFirstrow} =  //tbody[@id='warranty-results-body']//tr[1]//td[11]
 ${WM_ApprovedAmountHeaderFirstrow} =  //tbody[@id='warranty-results-body']//tr[1]//td[12]
 ${WM_ApprovalDateHeaderFirstrow} =  //tbody[@id='warranty-results-body']//tr[1]//td[13]
+${WM_WarrantymanagementBredCrumb} =  //a[@class='breadcrumbs-list-link'][normalize-space()='Warranty Management']
 
 #LazyLoad
 ${FT_serialno_40} =  //td[normalize-space()='40']
@@ -147,7 +148,7 @@ warranty claim number search
   Input Text    ${WM_ClaimNumberField}    ${WM_ClaimNumberFieldValue}
   Click Element    ${WM_SearchClaimsButton}
   Sleep    3s
-  Wait Until Page Contains    ${WM_ClaimNumberFieldValue}
+  #Wait Until Page Contains    ${WM_ClaimNumberFieldValue}
   ${ClaimNoSearchResult}=  Set Variable  ${WM_ClaimNumberFieldValue}
   ${actualClaiSearchResult}=  Get Text    ${WM_ClaimNumberSearchResultFieldRow}
   Should Be Equal As Strings    ${ClaimNoSearchResult}     ${actualClaiSearchResult}
@@ -302,27 +303,30 @@ verify the warranty management sorting
   Should Be Equal As Strings    ${WM_ApprovalDateHeaderAsc}    ${actual10}
   Click Element    ${WM_ApprovalDateHeader}
 verify the warranty management lazyload
+  Execute Javascript  window.scrollTo(0,0)
+  Wait Until Page Contains Element    ${WM_SearchClaimsButton}
   Click Element    ${WM_SearchClaimsButton}
   Execute JavaScript    window.scrollBy(0,200)
-  sleep    5s
+  sleep    3s
   Wait Until Element Is Visible    css=.table-responsive.freeze-header
   Execute Javascript   document.querySelector('.table-responsive.freeze-header').scrollLeft=-200;
   page should contain element    ${FT_serialno_40}
   Execute Javascript   document.querySelector('.table-responsive.freeze-header').scrollTop=1500;
-  sleep    5s
+  sleep    3s
   Execute Javascript   document.querySelector('.table-responsive.freeze-header').scrollTop=3500;
   Sleep    3s
   page should contain element    ${FT_serialno_80}
   page should not contain element    ${FT_serialno_81}
+  Execute Javascript  window.scrollTo(0,0)
 
 Submit the truck claim
   Wait Until Element Is Visible    ${WM_CreateNewwarrantyclaim}
   Click Element    ${WM_CreateNewwarrantyclaim}
   Wait Until Element Is Visible    ${NWM_EquipmentSerialNumberField}
   Input Text    ${NWM_EquipmentSerialNumberField}    ${NWM_SerialNo}
-  Wait Until Element Is Enabled    ${NWM_SubmitButton}
+  Sleep    2s
   Click Element    ${NWM_SubmitButton}
-  Wait Until Element Is Visible    ${NWM_WorkOrderField}
+  Wait Until Page Contains Element    ${NWM_WorkOrderField}
   Input Text    ${NWM_WorkOrderField}  ${NWM_WorkorderFieldValue}
   Wait Until Element Is Visible    ${NWM_PartCausingFailureField}
   Input Text    ${NWM_PartCausingFailureField}    ${NWM_PartCausingFailureFieldValue}
@@ -386,6 +390,7 @@ Submit the truck claim
   Click Element    ${NWM_EndSubmit}
   Wait Until Page Contains    ${NWM_SubmittedStatus}
   Page Should Contain    ${NWM_SubmittedStatus}
+  Click Element    ${WM_WarrantymanagementBredCrumb}
 
 Submit the part claim
   Click Element    ${WM_CreateNewwarrantyclaim}
@@ -416,7 +421,8 @@ Submit the part claim
   Click Element    ${NWM_EndSubmit}
   Sleep    2s
   Page Should Contain  ${NWM_SubmittedStatus}
-  
+  Click Element    ${WM_WarrantymanagementBredCrumb}
+
 Submit the Freight Claim
   Click Element    ${WM_CreateNewwarrantyclaim}
   Sleep    3s
@@ -430,3 +436,4 @@ Submit the Freight Claim
   Click Element    ${NWM_FreightCalculate}
   Click Element    ${NWM_EndSubmit}
   Page Should Contain  ${NWM_SubmittedStatus}
+  Click Element    ${WM_WarrantymanagementBredCrumb}

@@ -6,10 +6,10 @@ ${TopNav_LindeDropdown} =    xpath://a[normalize-space()='Linde']
 ${DropdownKitsLink} =    xpath://a[normalize-space()='Kits']
 ${SortBy} =    xpath://select[@id='SortingAttribute']
 ${AscendingOrder} =    xpath://option[@value='name-asc']
-${ProductIDforPDP_Page} =    xpath://div[9]//div[1]//div[2]//a[1]//span[1]
+${ProductIDforPDP_Page} =    //span[normalize-space()='1000HEAD GASKET (WAS 3681E018)']
 ${AddToWorkSheetButton} =    xpath://button[contains(@class,'btn-primary')][normalize-space()='+ Add to Worksheet']
 ${Availability&Pricing_Link} =    xpath://a[normalize-space()='Availability & Pricing']
-${Product_Name} =    label 'wheel bolt maintenance
+${Product_Name} =   1000HEAD GASKET (WAS 3681E018)
 ${AlternativeProduct_ID} =    13133810316
 ${AlternativeProductName_01} =    wiring harness 'single pedal
 #${AlternativeProductName_02} =    BRAKE ASSY, RH    #this product is breakdownproduct
@@ -36,47 +36,58 @@ ${Searchbox_SearchIcon} =    xpath://div[@id='header-searchbox']//i[@class='icon
 ${minicart_Close} =  //div[@class='block-content']//a[@data-toggle='collapse']
 *** Keywords ***
 Go to PDP
-    mouse down    ${TopNav_LindeDropdown}
+    #mouse down    ${TopNav_LindeDropdown}
     #sleep    2s
-    double click element    ${DropdownKitsLink}
+    #double click element    ${DropdownKitsLink}
     #sleep    5s
+    Wait Until Page Contains Element    ${SortBy}
     click element    ${SortBy}
+    Wait Until Page Contains Element    ${AscendingOrder}
     click element    ${AscendingOrder}
-    #sleep    5s
+    #Sleep    3s
+    Wait Until Page Contains Element   ${ProductIDforPDP_Page}
     click element    ${ProductIDforPDP_Page}
 
 Click add to worksheet button
+    Wait Until Page Contains Element    ${AddToWorkSheetButton}
     click element    ${AddToWorkSheetButton}
     Wait Until Element Is Visible    ${minicart_Close}
+    Wait Until Page Contains Element    ${minicart_Close}
     Click Element    ${minicart_Close}
 
 Go to current worksheet and verify the product
     Click Element    ${Availability&Pricing_Link}
-    #Sleep    3s
+    #Sleep    1s
     Wait Until Page Contains    ${Product_Name}
     page should contain    ${Product_Name}
 
 Go Alternative product PDP
-    Wait Until Page Contains Element    ${Search_Icon}
+    #Wait Until Page Contains Element    ${Search_Icon}
     click element   ${Search_Icon}
     Sleep    2s
+    #Wait Until Element Is Visible    ${Searbox}
+    #Wait Until Page Contains Element    ${Searbox}
     input text    ${Searbox}    ${AlternativeProduct_ID}
     click element    ${Searchbox_SearchIcon}
     Wait Until Page Contains Element    ${AlternativeProductWorkSheetButton}
     click element    ${AlternativeProductWorkSheetButton}
     Sleep    2s
+    #Wait Until Element Is Visible    ${minicart_Close}
     Click Element    ${minicart_Close}
 Go Breakdown product PDP
-    Wait Until Page Contains Element    ${Search_Icon}
+    #Wait Until Page Contains Element    ${Search_Icon}
     click element   ${Search_Icon}
     sleep    2s
+    #Wait Until Page Contains Element    ${Searbox}
+    #Wait Until Element Is Visible    ${Searbox}
     input text    ${Searbox}    ${BreakDownProduct_ID}
     click element    ${Searchbox_SearchIcon}
+    Wait Until Page Contains Element   ${BreakDownProduct_Locator}
     click element    ${BreakDownProduct_Locator}
     Wait Until Page Contains Element    ${BreakDownProductWorkSheetButton}
     click element    ${BreakDownProductWorkSheetButton}
     sleep    2s
-    Wait Until Page Contains Element   ${BreakDownAlertPopup_Ok}
+    #wait Until Element Is Visible   ${BreakDownAlertPopup_Ok}
     click element    ${BreakDownAlertPopup_Ok}
     Sleep    2s
     Wait Until Page Contains    Worksheet Order Total
@@ -85,9 +96,11 @@ Go Breakdown product PDP
     ...    ELSE  Log    message
 Go replacement product PDP
     #sleep    5s
+    Wait Until Element Is Visible    ${Search_Icon}
     click element   ${Search_Icon}
     sleep    2s
-    Wait Until Page Contains Element    ${Searbox}
+    #Wait Until Page Contains Element    ${Searbox}
+    #Wait Until Element Is Visible    ${Searbox}
     input text    ${Searbox}    ${ReplacementProduct_ID}
     click element    ${Searchbox_SearchIcon}
     #sleep    5s
@@ -103,7 +116,8 @@ Go to current worksheet and verify the all type of product
     #sleep    2s
     Wait Until Page Contains Element    ${Availability&Pricing_Link}
     click element    ${Availability&Pricing_Link}
-    sleep    2s
+    #sleep    2s
+    Wait Until Page Contains    ${AlternativeProductName_01}
     page should contain    ${AlternativeProductName_01}
     page should contain    ${BreakDownProduct_Name_1}
     page should contain    ${BreakDownProduct_Name_2}

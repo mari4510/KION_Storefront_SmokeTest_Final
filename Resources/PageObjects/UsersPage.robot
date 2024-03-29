@@ -26,7 +26,7 @@ ${AssinUserHeading} =    Assign Users
 ${AssignuserSearchSection} =    Name or ID:
 ${ADDUserHeading} =   Create New User
 ${CreateUserButton} =    //button[@name='Create']
-${CancelButton} =    //button[@name='Create']
+${CancelButton} =   //a[@class='btn btn-default']
 ${MyOrganaization_Link} =    //p[normalize-space()='My Organization']
 *** Keywords ***
 Verify the user page contents
@@ -41,7 +41,7 @@ Verify the user page contents
     page should contain element    ${Footer section}
 
 Verify userdetails page details
-    click element    ${Users_Link}
+    #click element    ${Users_Link}
     click element    ${TestMariUser}
     page should contain    ${userdetails_page_heading}
     page should contain element    ${ProfileEditIcon}
@@ -54,8 +54,10 @@ Verify userdetails page details
     page should contain    ${budetsection}
 
 Verify the assign User button
+    Wait Until Page Contains Element    ${Users_Link}
+    #Sleep    2s
     click element    ${Users_Link}
-    Sleep    2s
+    #Sleep    2s
     page should contain element    ${AssignUser_Button}
     click element    ${AssignUser_Button}
     page should contain    ${AssinUserHeading}
@@ -63,10 +65,11 @@ Verify the assign User button
 
 Verify the add user button
     click element    ${Users_Link}
-    sleep    5s
+    #sleep    2s
     page should contain element    ${AddUser_Button}
     click element    ${AddUser_Button}
     page should contain    ${ADDUserHeading}
     page should contain element    ${CreateUserButton}
     page should contain element    ${cancelbutton}
+    Click Element    ${CancelButton}
 

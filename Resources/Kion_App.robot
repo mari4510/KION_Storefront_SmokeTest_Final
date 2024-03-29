@@ -31,7 +31,7 @@ Resource    ./PageObjects/BoWarranty.robot
 
 *** Keywords ***
 Go to login page
-    Sleep    1s
+    #Sleep    1s
     LoginPage.go to login
 
 Login to the kion site
@@ -171,7 +171,7 @@ Verify the compare page product in current worksheet
 
 Upload the xls file in the current worksheet
     Current_WorkSheet.Go to currentworksheet
-    sleep    3s
+    #sleep    3s
     Current_WorkSheet.Upload a xls file
 
 Clear the worksheet products
@@ -188,12 +188,12 @@ Upload the XLSX file in the current worksheet
     current_worksheet.upload the xlsx file in the current worksheet
 
 Upload a MathPublisID file in the current worksheet
-    Current_WorkSheet.Go to currentworksheet
-    Sleep    5s
+    #Current_WorkSheet.Go to currentworksheet
+    #Sleep    5s
     current_worksheet.upload a mathpublish id
 
 Export the current worksheet details
-    Current_WorkSheet.Go to currentworksheet
+    #Current_WorkSheet.Go to currentworksheet
     Current_WorkSheet.Export the current worksheet
 
 Navigate to the currentwork sheet
@@ -245,14 +245,14 @@ Verify the placed order details page
     MyAccount.go to order details page
 
 Verify the Order details page contents
-    MyAccount.go to My Account Overview
-    MyAccount.go to placed order page
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to placed order page
     PlacedOrder.Order no for verify the details
     PlacedOrder.Verify the Order details page contents
 
 Verify the Trackit link for completed orders in invoice sumary page
-    MyAccount.go to My Account Overview
-    MyAccount.go to placed order page
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to placed order page
     PlacedOrder.Search the completed orders
     PlacedOrder.TrackIt Link verfication
 
@@ -260,26 +260,26 @@ Verify the BackOrders Page
     MyAccount.go to back orders page
 
 Verify the Back Orders page lazyload
-    MyAccount.go to My Account Overview
+    #MyAccount.go to My Account Overview
     MyAccount.go to back orders page
     BackOrders.Verify the back orders list page Lazy load
 
 Verify the Back Order list sorting option
-    MyAccount.go to My Account Overview
-    MyAccount.go to back orders page
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to back orders page
     BackOrders.BackOrders Sorting
 
 Verify the Back Orders list page details
-    MyAccount.go to My Account Overview
-    MyAccount.go to back orders page
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to back orders page
     BackOrders.Verify the backorder list page
 
 Verify the Backorders details page
     MyAccount.go to back orders details
 
 Verify the Back Orders Details page contents
-    MyAccount.go to My Account Overview
-    MyAccount.go to back orders page
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to back orders page
     BackOrders.Go to back orders details page and verify the backorder details pagecontents
 
 Verify the Truck sales page
@@ -330,23 +330,23 @@ Verify the Users Page
     MyAccount.go to Users page
 
 Verify the all contents in users page
-    MyAccount.go to My Account Overview
-    Sleep    3s
+    #MyAccount.go to My Account Overview
+    #Sleep    3s
     #MyAccount.Expand My Organization section
     #Sleep    3s
     UsersPage.Verify the user page contents
 
 Verify all page contents in the user details page
-    MyAccount.go to My Account Overview
+    #MyAccount.go to My Account Overview
     #Sleep    2s
     #MyAccount.Expand My Organization section
-    Sleep    1s
+    #Sleep    1s
     UsersPage.Verify userdetails page details
 
 Verify the assign userbutton in user list page
-    MyAccount.go to My Account Overview
-    Sleep    2s
-   # MyAccount.Expand My Organization section
+    #MyAccount.go to My Account Overview
+    #Sleep    2s
+    #MyAccount.Expand My Organization section
    # Sleep    1s
     UsersPage.Verify the assign User button
 
@@ -354,9 +354,9 @@ Verify the add user button in the user list page
     UsersPage.Verify the add user button
 
 Navigate to the SavedUnplacedOrders_Emergency details page and place the order
-    MyAccount.go to My Account Overview
+    #MyAccount.go to My Account Overview
     MyAccount.go to saved Unplaced Order page
-    sleep    5s
+    #sleep    2s
     SavedUnplaced_Order.go to emergency saved worksheet
     SavedUnplaced_Order.go to shoppingcart
     SavedUnplaced_Order.go to checkout
@@ -365,10 +365,10 @@ Navigate to the SavedUnplacedOrders_Emergency details page and place the order
 Navigate to the SavedUnplacedOrders_Stock details page and place the order
     Current_WorkSheet.Go to currentworksheet
     Current_WorkSheet.Save a Stock worksheet
-    Sleep    8s
-    MyAccount.go to My Account Overview
+    #Sleep    3s
+    #MyAccount.go to My Account Overview
     MyAccount.go to saved Unplaced Order page
-    sleep    3s
+    #sleep    3s
     SavedUnplaced_Order.go to Stock saved workseet
     SavedUnplaced_Order.go to shoppingcart
     SavedUnplaced_Order.go to checkout
@@ -390,132 +390,135 @@ Verify the all elements in the placed orders list page
     PlacedOrder.Verify the page elements
 
 Verify the all search criterias in placed orders page
-    MyAccount.go to My Account Overview
-    MyAccount.go to placed order page
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to placed order page
     PlacedOrder.Order No search
-    Sleep    2s
+    #Sleep    2s
     PlacedOrder.Purchase Order number search
-    Sleep    2s
+    #Sleep    2s
     PlacedOrder.Purchase Order date range
-    Sleep    4s
+    #Sleep    4s
     PlacedOrder.OrderType Search
-    Sleep    2s
+    #Sleep    2s
     PlacedOrder.Order status search
-    Sleep    2s
+    #Sleep    2s
     PlacedOrder.Part number search
-    Sleep    2s
+    #Sleep    2s
     PlacedOrder.Ascending search
+    #Sleep    2s
+    PlacedOrder.Default search
 
 Verify the placed orders page sorting options
-    MyAccount.go to My Account Overview
-    MyAccount.go to placed order page
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to placed order page
     PlacedOrder.Header sorting options
 
 Verify the returns page search criteria
-    MyAccount.go to My Account Overview
+#    MyAccount.go to My Account Overview
     MyAccount.go to returns page
-    Returns.Returns Default search
+    #Returns.Returns Default search
     Returns.Part return search
     Returns.Return your reference search
     Returns.Return Request date range
     Returns.Return Request Type Search
     Returns.Return status search
     Returns.Return Part number search
+    Returns.Returns Default search
 
 Verify the returns page Sorting and LazyLoad
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
     Returns.Verify returns sorting
     Returns.Verify returns LazyLoad
 
 Verify the new return form page information
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
     Returns.Go to new returns
     Returns.Verify the new return form information
 
 Verify the new return form information for price billing Error Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+   # Returns.Go to new returns
     Returns.Verify pricebilling error reason information
 
 Verify the new return form information for Dealer Order in Error Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Dealer Order in error reason information
 
 Verify the new return form information for Incorrectly Specified Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Incorrectly Specified reason information
 
 Kion_App.Verify the new return form information for Documentation/Manual Incorrect Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Documentation/Manual Incorrect reason information
 
 Verify the new return form information for Short Shipped Incorrect Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Short Shipped Incorrect reason information
 
 Verify the new return form information for Duplicate Shipment Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Duplicate Shipment reason information
 
 Verify the new return form information for Mismarked Inventory Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Mismarked Inventory reason information
 
 Verify the new return form information for Damaged in Transit by Carrier Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Damaged in Transit by Carrier reason information
 
 Verify the new return form information for Damaged in Transit b/o Packaging Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Damaged in Transit b/o Packaging reason information
 
 Verify the new return form information for Damaged in Lost in Transit Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Damaged in Lost in Transit reason information
 
 Verify the new return form information for Freight Overcharge Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Damaged in Freight Overcharge reason information
 
 Verify the new return form information for Freight for Re-order Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify Damaged in Freight for Re-order reason information
 
 Verify the new return form information for Freight for Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify in Freight for Return reason information
 
 Verify the new return form information for Core Exchange Return Reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Verify in Core Exchange Return reason information
 
 Submit new return
@@ -525,9 +528,9 @@ Submit new return
     Returns.Submit new Test return
 
 Submit the New return using price billing error return reason
-    MyAccount.go to My Account Overview
-    MyAccount.go to returns page
-    Returns.Go to new returns
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to returns page
+#    Returns.Go to new returns
     Returns.Submit new price billing error return
 
 Click the annual returns link in the returns page
@@ -536,114 +539,114 @@ Click the annual returns link in the returns page
     AnnualReturns.Navigating to the Annual Returns Page
 
 Verify the truck sales list page search criteria
-    MyAccount.go to My Account Overview
+#    MyAccount.go to My Account Overview
     MyAccount.go to truck sales page
     TruckSales.Verify the truck sales search page contents
-    Sleep    2s
+    #Sleep    2s
     TruckSales.Order number search
-    Sleep    2s
+    #Sleep    2s
     TruckSales.Purchase OrderNumber search
-    Sleep    2s
+    #Sleep    2s
     TruckSales.Purchase Order date range search
-    Sleep    2s
+    #Sleep    2s
     TruckSales.Truck Model search
-    Sleep    2s
+    #Sleep    2s
     TruckSales.Order status search
 
 Verify the truck sales search with more than one search criteria
-    MyAccount.go to My Account Overview
-    MyAccount.go to truck sales page
+#    MyAccount.go to My Account Overview
+#    MyAccount.go to truck sales page
     TruckSales.Search Sale report with more search criteria
 
 Verify the truck sales search result lazy load
-   MyAccount.go to My Account Overview
-   MyAccount.go to truck sales page
+#   MyAccount.go to My Account Overview
+#   MyAccount.go to truck sales page
    TruckSales.Verify the lazy load in the truck sales search result
 
 Verify the sorting options in trucksales search results
-   MyAccount.go to My Account Overview
-   MyAccount.go to truck sales page
+#   MyAccount.go to My Account Overview
+#   MyAccount.go to truck sales page
    TruckSales.Verify the trucksales search result sorting option
 
 Verify the truck details page contents
-   MyAccount.go to My Account Overview
-   MyAccount.go to truck sales page
+#   MyAccount.go to My Account Overview
+#   MyAccount.go to truck sales page
    TruckSales.Verify the trucksales details page contents
 
 Verify the truck Search page Serial Number field
-   MyAccount.go to My Account Overview
-   #MyAccount.Expand Product support section
+#   MyAccount.go to My Account Overview
+   MyAccount.Expand Product support section
    MyAccount.go to truck search page
    TruckSearch.Serialnumber field search
 
 Verify the truck Search page Description field
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
-   MyAccount.go to truck search page
+   #MyAccount.go to truck search page
    TruckSearch.Description field search
 
 Verify the history button for current dealer truck
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
-   MyAccount.go to truck search page
+   #MyAccount.go to truck search page
    TruckSearch.Verify the history button for current dealer truck
 
 Verify the history button for other dealer truck
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
-   MyAccount.go to truck search page
+   #MyAccount.go to truck search page
    TruckSearch.Verify the history button for other dealer truck
 
 Verify the sorting options and truck searching
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
-   MyAccount.go to truck search page
+   #MyAccount.go to truck search page
    TruckSearch.Verify the sorting and searching
 
 Verify the Equipment details page contents
-   MyAccount.go to My Account Overview
-   #MyAccount.Expand Product support section
-   MyAccount.go to truck search page
+#   MyAccount.go to My Account Overview
+#   #MyAccount.Expand Product support section
+#   MyAccount.go to truck search page
    TruckSearch.go to Equipment details page and verify contents
 
 Verify the claim history button with claim history
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
    MyAccount.go to truck search page
    TruckSearch.go to Equipment details verify the history page details
 
 Verify the claim history button without claim history
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    MyAccount.go to truck search page
    TruckSearch.go to equipment details page and verify the history button for no history available truck
 
 Verify the Truck installation search criteria
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
    MyAccount.go to truck installation page
    TruckInstallation.Verify the report search criteria
 
 Verify the truck installation sorting and lazy load
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
    MyAccount.go to truck installation page
    TruckInstallation.Verify the sorting in the truck insatallation page
    TruckInstallation.Verify the Search installation lazy load
 
 Verify the Electric truck installation submit
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
-   MyAccount.go to truck installation page
+   #MyAccount.go to truck installation page
    TruckInstallation.Submit the new electric truck installation
 
 Verify the IC truck installation submit
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
-   MyAccount.go to truck installation page
+   #MyAccount.go to truck installation page
    TruckInstallation.Submit the new IC truck installation
 
 Verify the warranty management search criteria
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
    MyAccount.go to warranty page
    WarrantyManagement.warranty claim number search
@@ -658,28 +661,28 @@ Verify the warranty management search criteria
    WarrantyManagement.Warranty message search
 
 verify the sorting and lazyload in the warranty management page
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
-   MyAccount.go to warranty page
+   #MyAccount.go to warranty page
    WarrantyManagement.verify the warranty management sorting
    WarrantyManagement.verify the warranty management lazyload
 
 verify the truck claim pages and submit the truck claim
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
    MyAccount.go to warranty page
    WarrantyManagement.Submit the truck claim
 
 verify the part claim pages and submit the part claim
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
-   MyAccount.go to warranty page
+   #MyAccount.go to warranty page
    WarrantyManagement.Submit the part claim
 
 verify the Frieght claim pages and submit the Frieght claim
-   MyAccount.go to My Account Overview
-   #MyAccount.Expand Product support section
-   MyAccount.go to warranty page
+#   MyAccount.go to My Account Overview
+#   #MyAccount.Expand Product support section
+#   MyAccount.go to warranty page
    WarrantyManagement.Submit the Freight Claim
 
 Verify the truck transfer-Truck search and Truck transfer Equipment details page
@@ -690,9 +693,9 @@ Verify the truck transfer-Truck search and Truck transfer Equipment details page
    TruckTransfer.Search any valid truck and verify the equipment details page
 
 Verify the sorting and lazy load in truck transfer-Truck search page
-   MyAccount.go to My Account Overview
+   #MyAccount.go to My Account Overview
    #MyAccount.Expand Product support section
-   MyAccount.go to truck transfer page
+   #MyAccount.go to truck transfer page
    TruckTransfer.Verify the the sorting and lazy load in the truck transfer search page
 
 
@@ -711,13 +714,14 @@ Verify the admin truck search page searhc criteria
    BackOfficeTruckSearch.Dealernumber search
 
 Verify the Admin truck search sorting and lazy load
-   BackOfficeTruckSearch.Go to admin truck search
-   BackOfficeTruckSearch.Dealernumber search
+#   BackOfficeTruckSearch.Go to admin truck search
+#   BackOfficeTruckSearch.Dealernumber search
    BackOfficeTruckSearch.Verify the sorting and searching
 
 verify the admin login truck details page
-   BackOfficeTruckSearch.Go to admin truck search
-   BackOfficeTruckSearch.Dealernumber search
+#   BackOfficeTruckSearch.Go to admin truck search
+#   BackOfficeTruckSearch.Dealernumber search
+#   BackOfficeTruckSearch.Verify the sorting and searching
    BackOfficeTruckSearch.go to Equipment details page and verify contents
 
 Verify the admin installation report search

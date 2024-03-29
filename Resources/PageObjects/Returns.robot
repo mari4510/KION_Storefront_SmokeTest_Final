@@ -33,13 +33,13 @@ ${RT_PartSearch_Result} =  60056006
 
 ${RT_PartReturnHeader} =  //th[@data-sort='DocumentNo']
 ${RT_PartReturnFirstRow} =  //tbody[@id='ReturnsSearchResultBody']//tr[1]//td[2]
-${RT_PartReturnAscValue} =  60052445
+${RT_PartReturnAscValue} =  60052674
 ${RT_YourReferenceHeader} =  //th[@data-sort='PONumber']
 ${RT_YourreferenceFirstRow} =   //tbody[@id='ReturnsSearchResultBody']//tr[1]//td[3]
 ${RT_YourReferenceAscValue} =  16277
 ${RT_DateHeader} =  //th[@data-sort='CreationDate']
 ${RT_DateFirstRow} =   //tbody[@id='ReturnsSearchResultBody']//tr[1]//td[4]
-${RT_DateAscValue} =  	02/28/22
+${RT_DateAscValue} =  	03/30/22
 ${RT_RequestTypeHeader} =  //th[@data-sort='OrderType']
 ${RT_RequestTypeFirstRow} =   //tbody[@id='ReturnsSearchResultBody']//tr[1]//td[5]
 ${RT_RequestTypeAscValue} =  	Annual Return
@@ -80,6 +80,7 @@ ${RT_N_LineItemQty} =  //input[@name='Qty_1']
 ${RT_N_UpdateButton} =  //input[@name='Update']
 ${RT_N_SubmitButton} =  //input[@name='Confirm']
 ${RT_N_ConfirmSubmit} =  //input[@name='Submit']
+${RT_N_BackButton} =  //a[.='Back']
 ${RT_N_ConfirmationHeading} =  Returns - Confirmation
 ${RT_N_ConfirmationMessage} =  Your request has been received !
 #New ReturnForm submit page General values
@@ -259,45 +260,55 @@ Return Part number search
 
 Verify returns sorting
     Click Element    ${RT_SearchButton}
-    Sleep    5s
-    Click Element    ${RT_PartReturnHeader}
     Sleep    3s
+    Click Element    ${RT_PartReturnHeader}
+    Sleep    2s
     ${ExpectedPR}  Set Variable   ${RT_PartReturnAscValue}
     ${Actual} =  Get Text    ${RT_PartReturnFirstRow}
     Should Be Equal As Strings    ${ExpectedPR}    ${Actual}
     Click Element    ${RT_PartReturnHeader}
     Sleep    2s
+    Wait Until Element Is Visible    ${RT_YourReferenceHeader}
     Click Element    ${RT_YourReferenceHeader}
-    Sleep    3s
+    Sleep    2s
+    Wait Until Page Contains    ${RT_YourReferenceAscValue}
     ${ExpectedYR}  Set Variable   ${RT_YourReferenceAscValue}
     ${Actual01} =  Get Text    ${RT_YourreferenceFirstRow}
     ${ActualOriginal}=  Evaluate    "${Actual01}".strip()
     Should Be Equal As Strings    ${ExpectedYR}    ${ActualOriginal}
     Click Element    ${RT_YourReferenceHeader}
     Sleep    2s
+    Wait Until Page Contains Element    ${RT_DateHeader}
     Click Element    ${RT_DateHeader}
-    Sleep    3s
+    Sleep    2s
+    Wait Until Page Contains    ${RT_DateAscValue}
     ${ExpectedDH}  Set Variable   ${RT_DateAscValue}
     ${Actual02} =  Get Text    ${RT_DateFirstRow}
     Should Be Equal As Strings    ${ExpectedDH}    ${Actual02}
     Click Element    ${RT_DateHeader}
     Sleep    2s
+    Wait Until Page Contains Element    ${RT_RequestTypeHeader}
     Click Element    ${RT_RequestTypeHeader}
     Sleep    2s
+    Wait Until Page Contains    ${RT_RequestTypeAscValue}
     ${ExpectedRTH}  Set Variable   ${RT_RequestTypeAscValue}
     ${Actual03} =  Get Text    ${RT_RequestTypeFirstRow}
     Should Be Equal As Strings    ${ExpectedRTH}    ${Actual03}
     Click Element    ${RT_RequestTypeHeader}
     Sleep    2s
     ${ExpectedTAH}  Set Variable   ${RT_TotalAmountAscValue}
+    Wait Until Page Contains Element   ${RT_TotalAmountHeader}
     Click Element    ${RT_TotalAmountHeader}
     Sleep    2s
+    Wait Until Page Contains    ${RT_TotalAmountAscValue}
     ${Actual04} =  Get Text    ${RT_TotalAmountFirstRow}
     Should Be Equal As Strings    ${ExpectedTAH}    ${Actual04}
     Click Element    ${RT_TotalAmountHeader}
     Sleep    2s
+    Wait Until Page Contains Element    ${RT_contactNameHeader}
     Click Element    ${RT_contactNameHeader}
     Sleep    2s
+    Wait Until Page Contains    ${RT_contactNameAscValue}
     ${Expectedcn}  Set Variable   ${RT_contactNameAscValue}
     ${Actual05} =  Get Text    ${RT_contactNameFirstRow}
     ${ActualOriginal01}=  Evaluate    "${Actual05}".strip()
@@ -305,26 +316,31 @@ Verify returns sorting
     Sleep    2s
     Click Element    ${RT_contactNameHeader}
     Sleep    2s
+    Wait Until Page Contains Element     ${RT_StatusHeader}
     Click Element    ${RT_StatusHeader}
     Sleep    2s
+    Wait Until Page Contains    ${RT_StatusAscValue}
     ${Expectedst}  Set Variable   ${RT_StatusAscValue}
     ${Actual06} =  Get Text    ${RT_StatusFirstRow}
     Should Be Equal As Strings    ${Expectedst}    ${Actual06}
     Sleep    2s
     Click Element    ${RT_StatusHeader}
 Verify returns LazyLoad
-    sleep    5s
+    #sleep    5s
     Execute JavaScript    window.scrollBy(0,300)
-    sleep    5s
+    #sleep    5s
     page should contain element    ${RT_serialno_10}
     Execute Javascript   document.querySelector('.table-responsive.freeze-header.min-records').scrollTop = 100;
     page should not contain element    ${RT_serialno_11}
-    Sleep    3s
+    #Sleep    3s
     Execute Javascript   document.querySelector('.table-responsive.freeze-header.min-records').scrollTop = 800;
+    Sleep    2s
     page should contain element    ${RT_serialno_20}
     page should not contain element    ${RT_serialno_21}
+    Execute JavaScript    window.scrollTo(0,0)
 
 Go to new returns
+  Execute JavaScript    window.scrollTo(0,0)
   Wait Until Element Is Visible    ${RT_NewReturnLink}
   Click Element    ${RT_NewReturnLink}
 
@@ -352,20 +368,26 @@ Submit new Test return
    Input Text    ${RT_N_LineItemQty}    1
    Click Element    ${RT_N_UpdateButton}
    Click Element    ${RT_N_SubmitButton}
+   Wait Until Page Contains Element    ${RT_N_ConfirmSubmit}
+   Click Element    ${RT_N_ConfirmSubmit}
+   Wait Until Page Contains    ${RT_N_ConfirmationMessage}
+   Click Element    ${RT_N_BackButton}
 
 Verify pricebilling error reason information
+  Wait Until Page Contains Element    ${RT_N_EnterInvoiceNumberField}
   Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
+  #Sleep    2s
   Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+  #Sleep    2s
+  Wait Until Page Contains Element    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
-  Wait Until Element Is Visible    ${RTN_PriceBillingErrorReasonButton}
+  #Wait Until Page Contains Element    ${RTN_PriceBillingErrorReasonButton}
   Click Element    ${RTN_PriceBillingErrorReasonButton}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
+  #Sleep    2s
+  Wait Until Page Contains Element    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -397,20 +419,22 @@ Verify pricebilling error reason information
   Page Should Contain Element    ${RT_NSL_ProceedButton}
 
 Verify Dealer Order in error reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Sleep    2s
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Sleep    2s
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
+  Wait Until Page Contains Element    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
-  Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
+  #Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
+  Wait Until Page Contains Element    ${RTN_DealerOrderInErrorReasonButton}
   Click Element    ${RTN_DealerOrderInErrorReasonButton}
-  Sleep    2s
+  #Sleep    2s
+  Wait Until Page Contains Element    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -442,20 +466,20 @@ Verify Dealer Order in error reason information
   Page Should Contain Element    ${RT_NSL_ProceedButton}
 
 Verify Incorrectly Specified reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
   Wait Until Element Is Visible    ${RTN_IncorrectlySpecifiedReasonButton}  timeout=10s
   Click Element    ${RTN_IncorrectlySpecifiedReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    3s
+  #Sleep    3s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -484,20 +508,20 @@ Verify Incorrectly Specified reason information
   Page Should Contain    ${RT_NSL_PartreturnTotalLabel}
 
 Verify Documentation/Manual Incorrect reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
   Wait Until Element Is Visible    ${RTN_DocumentationManualIncorrectReasonButton}
   Click Element    ${RTN_DocumentationManualIncorrectReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -526,20 +550,20 @@ Verify Documentation/Manual Incorrect reason information
   Page Should Contain    ${RT_NSL_PartreturnTotalLabel}
 
 Verify Short Shipped Incorrect reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
   Wait Until Element Is Visible    ${RTN_ShortShippedReasonButton}
   Click Element    ${RTN_ShortShippedReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    3s
+  #Sleep    3s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -569,17 +593,17 @@ Verify Short Shipped Incorrect reason information
   Page Should not Contain    ${RTN_IS_FrieghtText}
   Page Should Contain    ${RT_NSL_PartreturnTotalLabel}
 Verify Duplicate Shipment reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
   Wait Until Element Is Visible    ${RTN_DuplicateShipmentReasonButton}
   Click Element    ${RTN_DuplicateShipmentReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
@@ -594,7 +618,7 @@ Verify Duplicate Shipment reason information
   Page Should Contain Element    ${RT_NS_ReasonContentsHTML}
   Page Should Contain    ${RT_NS_PartreturnReasoncodeLabel}
   Page Should Contain    ${RT_NS_ReturnReasonLabel}
-  Sleep    2s
+  #Sleep    2s
   Page Should Contain    ${RTN_DuplicateShipmentMessage}
   Page Should Contain    ${RT_NSL_ItemColumn}
   Page Should Contain    ${RT_NSL_PartColumn}
@@ -610,11 +634,11 @@ Verify Duplicate Shipment reason information
   Page Should Contain    ${RTN_IS_FrieghtText}
   Page Should Contain    ${RT_NSL_PartreturnTotalLabel}
 Verify Mismarked Inventory reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
@@ -623,7 +647,7 @@ Verify Mismarked Inventory reason information
   Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -651,20 +675,20 @@ Verify Mismarked Inventory reason information
   Page Should Contain    ${RTN_IS_FrieghtText}
   Page Should Contain    ${RT_NSL_PartreturnTotalLabel}
 Verify Damaged in Transit by Carrier reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
   Wait Until Element Is Visible    ${RTN_DamagedTransitByCarrierReasonButton}
   Click Element    ${RTN_DamagedTransitByCarrierReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -695,20 +719,20 @@ Verify Damaged in Transit by Carrier reason information
   Page Should Contain Element    ${RT_NSL_UpdateButton}
   Page Should Contain Element    ${RT_NSL_ProceedButton}
 Verify Damaged in Transit b/o Packaging reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
-  Sleep    2s
+  Sleep    3s
   Wait Until Element Is Visible    ${RTN_DamagedTransitPackagingReasonButton}
   Click Element    ${RTN_DamagedTransitPackagingReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -737,20 +761,20 @@ Verify Damaged in Transit b/o Packaging reason information
   Page Should Contain    ${RT_NSL_PartreturnTotalLabel}
 
 Verify Damaged in Lost in Transit reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
   Wait Until Element Is Visible    ${RTN_LostinTransitReasonButton}
   Click Element    ${RTN_LostinTransitReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -783,18 +807,18 @@ Verify Damaged in Lost in Transit reason information
   Page Should Contain Element    ${RT_NSL_ProceedButton}
   
 Verify Damaged in Freight Overcharge reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
   Wait Until Element Is Visible    ${RTN_FreightOverChargeReasonButton}
   Click Element    ${RTN_FreightOverChargeReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    3s
+  #Sleep    3s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -828,20 +852,20 @@ Verify Damaged in Freight Overcharge reason information
   Page Should Contain Element    ${RT_NSL_ProceedButton}
 
 Verify Damaged in Freight for Re-order reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
   Wait Until Element Is Visible    ${RTN_FreightForReorderReasonButton}
   Click Element    ${RTN_FreightForReorderReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  Sleep    3s
+  #Sleep    3s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -875,20 +899,20 @@ Verify Damaged in Freight for Re-order reason information
   Page Should Contain Element    ${RT_NSL_ProceedButton}
 
 Verify in Freight for Return reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
   Wait Until Element Is Visible    ${RTN_FreightForReturnReasonButton}
   Click Element    ${RTN_FreightForReturnReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
-  sleep  2s
+  #sleep  2s
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_ReturnsHeader}
   Page Should Contain    ${RT_NS_CreatepartsreturnSectionHeader}
@@ -921,17 +945,17 @@ Verify in Freight for Return reason information
   Page Should Contain Element    ${RT_NSL_UpdateButton}
   Page Should Contain Element    ${RT_NSL_ProceedButton}
 Verify in Core Exchange Return reason information
-  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
-  Sleep    2s
-  Wait Until Element Is Visible    ${RT_N_ProceedButton}
-  Click Element    ${RT_N_ProceedButton}
-  Sleep    2s
+#  Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_NS_InvoiceValue}
+#  Sleep    2s
+#  Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#  Click Element    ${RT_N_ProceedButton}
+  #Sleep    2s
   Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
   Click Element    ${RTN_ReturnReasonButton}
   Sleep    3s
   Wait Until Element Is Visible    ${RTN_CoreExchangeReasonButton}
   Click Element    ${RTN_CoreExchangeReasonButton}
-  Sleep    2s
+  #Sleep    2s
   Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
   Click Element    ${RT_NS_ReasonSelectButton}
   Wait Until Page Contains    ${RT_NS_ReturnsHeader}
@@ -965,20 +989,20 @@ Verify in Core Exchange Return reason information
   Page Should Contain Element    ${RT_NSL_ProceedButton}
 
 Submit new price billing error return
-   Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_N_InvoiceNumber}
-   Sleep    2s
-   Wait Until Element Is Visible    ${RT_N_ProceedButton}
-   Click Element    ${RT_N_ProceedButton}
-   Sleep    2s
+#   Input Text    ${RT_N_EnterInvoiceNumberField}    ${RT_N_InvoiceNumber}
+#   #Sleep    2s
+#   Wait Until Element Is Visible    ${RT_N_ProceedButton}
+#   Click Element    ${RT_N_ProceedButton}
+#   #Sleep    2s
    Wait Until Element Is Visible    ${RTN_ReturnReasonButton}
    Click Element    ${RTN_ReturnReasonButton}
    Sleep    3s
    Wait Until Element Is Visible    ${RTN_PriceBillingErrorReasonButton}
    Click Element    ${RTN_PriceBillingErrorReasonButton}
-   Sleep    2s
+   #Sleep    2s
    Wait Until Element Is Visible    ${RT_NS_ReasonSelectButton}
    Click Element    ${RT_NS_ReasonSelectButton}
-   Sleep    2s
+   #Sleep    2s
    Wait Until Element Is Visible    ${RT_N_Note}
    Input Text    ${RT_N_Note}    ${RT_N_NoteValue}
    Wait Until Element Is Visible    ${RT_N_Email}
@@ -1002,3 +1026,4 @@ Submit new price billing error return
    Wait Until Page Contains    ${RT_N_ConfirmationHeading}
    Page Should Contain    ${RT_N_ConfirmationHeading}
    Page Should Contain    ${RT_N_ConfirmationMessage}
+   Click Element    ${RT_N_BackButton}

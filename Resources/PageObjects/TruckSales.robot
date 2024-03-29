@@ -55,6 +55,7 @@ ${TS_EndUserColumn} =  //th[@data-sort='EndUser']
 ${TS_EndUserColumnAsc} =  A.LASSONDE INC ROUGEMONT QC J0L 1M0
 ${DateRangeResult} =  1439673
 ${CompletedStatusValue} =  Completed
+${TS_TruckSaleNumber} =  //a[.='1440343']
 #Lazy Load
 ${TS_serialno_10} =  //table[@id='truck-order-search-results']/tbody/tr[10]/td[1]
 ${TS_serialno_20} =  //table[@id='truck-order-search-results']/tbody/tr[20]/td[1]
@@ -161,6 +162,7 @@ Search Sale report with more search criteria
   Click Element    ${TS_OpenStatus}
   Click Element    ${TS_SearchTrucksButton}
   Page Should Contain    ${TS_OrderValue}
+  Click Element    ${TS_ClearSearchButton}
 
 Verify the lazy load in the truck sales search result
   Click Element    ${TS_SearchTrucksButton}
@@ -177,9 +179,12 @@ Verify the lazy load in the truck sales search result
   page should not contain element    ${TS_serialno_21}
 
 Verify the trucksales search result sorting option
+  Execute JavaScript    window.scrollTo(0,0)
   Click Element    ${TS_SearchTrucksButton}
+  Wait Until Page Contains Element    ${TS_OrderColumn}
   Click Element    ${TS_OrderColumn}
-  Sleep    2s
+  #Sleep    2s
+  Wait Until Page Contains     ${TS_OrderColumnAsc}
   Page Should Contain    ${TS_OrderColumnAsc}
   Click Element    ${TS_PoColumn}
   Sleep    2s
@@ -216,17 +221,22 @@ Verify the trucksales search result sorting option
   ${normalized_actual}    Evaluate    $expected_Text
   Should Be Equal As Strings    ${normalized_actual}    ${expected_Text}
   Click Element    ${TS_PaymentTermsColumn}
-  Sleep    2s
+  Sleep    3s
   Page Should Contain    ${TS_PaymentTermsColumnAsc}
   Click Element    ${TS_EndUserColumn}
   Sleep    2s
   Page Should Contain    ${TS_EndUserColumnAsc}
 
 Verify the trucksales details page contents
-  Click Element    ${TS_SearchTrucksButton}
-  Click Element    ${TS_OrderColumn}
+  Input Text    ${TS_OrderTextField}    ${TS_OrderValue}
   Sleep    2s
-  Click Link    ${TS_OrderColumnAsc}
+  Click Element    ${TS_SearchTrucksButton}
+  #Click Element    ${TS_SearchTrucksButton}
+  Wait Until Page Contains Element    ${TS_TruckSaleNumber}
+  Click Element    ${TS_TruckSaleNumber}
+  Sleep    2s
+  Wait Until Page Contains    ${TSD_Heading}
+  #Click Link    ${TS_OrderColumnAsc}
   Page Should Contain    ${TSD_Heading}
   Page Should Contain    ${TSD_TruckOrderSummaryHeading}
   Page Should Contain    ${TSD_OrderLabel}
@@ -253,4 +263,6 @@ Verify the trucksales details page contents
   Page Should Contain    ${TSD_TotalNetLabel}
   Page Should Contain Element    ${TSD_BackButton}
   Page Should Contain Element    ${TS_PrintButton}
+  Wait Until Page Contains Element     ${TSD_BackButton}
+  Click Element    ${TSD_BackButton}
 
